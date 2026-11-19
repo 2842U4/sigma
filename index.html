@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SIGMA PULSE | Global Real-Time Viral Intelligence (54 Countries)</title>
-  <meta name="description" content="Real-time Google Trends & viral intelligence across 54 countries including US, India, UK, Brazil, Japan, Taiwan, and Europe." />
+  <meta name="description" content="Real-time translated Google Trends & viral intelligence across 54 countries." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+KR:wght@400;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-base: #060910;
@@ -24,13 +24,12 @@
       --cyan: #38bdf8;
       --amber: #f59e0b;
       --emerald: #10b981;
-      --purple: #a855f7;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', 'Noto Sans TC', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg-base);
       background-image:
         radial-gradient(circle at 12% 0%, rgba(255, 46, 76, 0.09) 0%, transparent 40%),
@@ -256,7 +255,7 @@
       cursor: pointer;
     }
 
-    /* 3. 雙層地理控制列（洲別膠囊 + 54國下拉 + 熱度排序） */
+    /* 3. 雙層地理控制列 */
     .controls-bar {
       display: flex;
       flex-wrap: wrap;
@@ -324,9 +323,7 @@
       outline: none;
       max-width: 230px;
     }
-    .control-select:focus {
-      border-color: var(--cyan);
-    }
+    .control-select:focus { border-color: var(--cyan); }
 
     /* 4. 頭條 Bento Grid 焦點區 */
     .hero-bento {
@@ -411,8 +408,14 @@
       font-size: clamp(1.45rem, 2.6vw, 2.05rem);
       font-weight: 900;
       line-height: 1.25;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
       color: #fff;
+    }
+    .orig-sub {
+      font-size: 0.78rem;
+      color: var(--cyan);
+      opacity: 0.85;
+      margin-bottom: 8px;
     }
     .hero-hook {
       color: #cbd5e1;
@@ -656,11 +659,19 @@
       flex-direction: column;
     }
     .card-keyword {
-      font-size: 1.12rem;
+      font-size: 1.1rem;
       font-weight: 800;
       color: #fff;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       line-height: 1.35;
+    }
+    .card-orig {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .card-hook {
       font-size: 0.88rem;
@@ -724,7 +735,6 @@
       color: #060910;
     }
 
-    /* 分頁載入更多按鈕 */
     .load-more-wrap {
       text-align: center;
       margin-top: 28px;
@@ -745,7 +755,6 @@
       color: #060910;
     }
 
-    /* 骨架屏動畫 */
     .skeleton {
       background: linear-gradient(90deg, #121b2d 25%, #1c2942 50%, #121b2d 75%);
       background-size: 200% 100%;
@@ -797,7 +806,7 @@
     <div class="ticker-label"><span class="pulse-dot"></span> <span id="t-ticker">LIVE SURGING</span></div>
     <div class="ticker-track-wrap">
       <div class="ticker-track" id="ticker-track">
-        <span class="ticker-item">Syncing 54 Countries Google Trends Radar...</span>
+        <span class="ticker-item">Syncing 54 Countries Localized Viral Radar...</span>
       </div>
     </div>
   </div>
@@ -809,7 +818,7 @@
         <div class="brand-icon">⚡</div>
         <div>
           <div class="brand-title">SIGMA <span>PULSE</span></div>
-          <div class="brand-sub" id="brand-sub">54 COUNTRIES VIRAL RADAR</div>
+          <div class="brand-sub" id="brand-sub">54 COUNTRIES AUTO-TRANSLATED RADAR</div>
         </div>
       </a>
 
@@ -821,6 +830,7 @@
           <button class="lang-btn" data-lang="zh-TW" onclick="setLang('zh-TW')">繁中</button>
           <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
           <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">日本語</button>
+          <button class="lang-btn" data-lang="ko" onclick="setLang('ko')">한국어</button>
           <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
           <button class="lang-btn" data-lang="pt" onclick="setLang('pt')">PT</button>
         </div>
@@ -832,16 +842,16 @@
   <main class="container">
     <!-- 點擊追蹤面板 (?stats=1) -->
     <div id="stats-panel">
-      <h3>📊 SIGMA PULSE 54國流量漏斗監測</h3>
+      <h3>📊 SIGMA PULSE 54國多語系流量漏斗監測</h3>
       <div id="stats-content">尚無點擊紀錄</div>
       <button class="stats-btn" onclick="resetStats()">重置本地數據</button>
     </div>
 
-    <!-- 3. 雙層地理控制列 -->
+    <!-- 3. 地理與市場過濾控制列（預設全球總覽，保留一鍵本地篩選） -->
     <div class="controls-bar">
       <div class="group-tabs" id="group-tabs">
-        <button class="tab-btn local-highlight" id="btn-local-country" style="display:none;" onclick="selectLocalCountry()"></button>
         <button class="tab-btn active" data-group="ALL" onclick="setGroup('ALL')">🌐 <span id="t-grp-ALL">Global</span></button>
+        <button class="tab-btn local-highlight" id="btn-local-country" style="display:none;" onclick="selectLocalCountry()"></button>
         <button class="tab-btn" data-group="TIER1" onclick="setGroup('TIER1')">💎 <span id="t-grp-TIER1">Tier-1 Markets</span></button>
         <button class="tab-btn" data-group="ASIA" onclick="setGroup('ASIA')">🌏 <span id="t-grp-ASIA">Asia-Pacific</span></button>
         <button class="tab-btn" data-group="EUROPE" onclick="setGroup('EUROPE')">🇪🇺 <span id="t-grp-EUROPE">Europe</span></button>
@@ -893,7 +903,7 @@
   <div id="toast">✅ Copied!</div>
 
   <footer>
-    SIGMA PULSE · 54-Country Automated Search Intelligence · Updated Every 2 Hours
+    SIGMA PULSE · 54-Country Auto-Translated Search Intelligence · Updated Every 2 Hours
   </footer>
 
   <script>
@@ -901,6 +911,7 @@
     const PAGE_SIZE = 24;
 
     let allItems = [];
+    let currentFilteredList = [];
     let countriesMeta = [];
     let currentLang = 'en';
     let currentGroup = 'ALL';
@@ -912,132 +923,162 @@
     const I18N = {
       'zh-TW': {
         ticker: 'LIVE 全球飆升榜',
-        searchPlaceholder: '搜尋 54 國關鍵字、人物...',
+        searchPlaceholder: '搜尋 54 國關鍵字（支援中文/原文）...',
         groups: { ALL: '全球總覽', TIER1: '歐美高熱度區', ASIA: '亞太區', EUROPE: '歐洲區', AMERICAS: '美洲區', MEA: '中東與非洲' },
         allCountriesOpt: (n) => `🏳️ 全部 ${n} 個國家/地區`,
-        localBtn: (flag, name) => `📍 本地熱搜：${flag} ${name}`,
+        localBtn: (flag, name) => `📍 只看本地：${flag} ${name}`,
         sortTraffic: '🔥 依搜尋熱度排序 (最高優先)',
         sortDefault: '⚡ 依國家人口規模排序',
-        sectionTitle: '📡 全球即時趨勢雷達流',
+        sectionTitle: '📡 全球即時趨勢雷達流（已自動翻譯）',
         showing: (shown, total) => `顯示 ${shown} / ${total} 筆即時話題`,
         loadMore: (rem) => `載入更多趨勢話題 (還有 ${rem} 筆) ▾`,
         empty: '找不到符合條件的熱搜話題，請切換國家或關鍵字。',
-        top1Badge: '👑 當前熱度 #1',
+        top1Badge: '👑 全球熱度 #1',
         readFull: '閱讀完整事件始末 ↗',
         readShort: '查看懶人包 ↗',
         shareFull: '📋 複製爆文引流',
         shareShort: '📋 轉發',
         sourcePrefix: '來源：',
+        origPrefix: '原文：',
         smartTag: '⚡ AI 演算法即時預測 · 破百萬潛力榜',
         smartTitle: '全球正在瘋傳但新聞還沒報的 Top 1 爆紅內幕',
         smartDesc: '系統偵測過去 60 分鐘跨國搜尋量暴增 480%，點擊立即解鎖完整事件懶人包與現場影片。',
         smartCta: '立即解鎖完整懶人包 ➔',
-        toast: '✅ 已複製爆文標題與網址，快去 Threads / X 貼上引流！',
-        shareTemplate: (kw, hk, tr, url) => `🔥 剛剛衝上熱搜（${tr}）：${kw}\n${hk}\n👇 完整爆紅原因懶人包：\n${url}`
+        toast: '✅ 已複製中文爆文標題與網址，快去 Threads / X 貼上引流！',
+        shareTemplate: (kw, hk, tr, url) => `🔥 剛剛衝上全球熱搜（${tr}）：${kw}\n${hk}\n👇 完整爆紅原因懶人包：\n${url}`
       },
       'en': {
         ticker: 'LIVE GLOBAL SURGE',
-        searchPlaceholder: 'Search 54 countries...',
-        groups: { ALL: 'Global', TIER1: 'Tier-1 Markets', ASIA: 'Asia-Pacific', EUROPE: 'Europe', AMERICAS: 'Americas', MEA: 'MEA' },
+        searchPlaceholder: 'Search 54 countries (English / Original)...',
+        groups: { ALL: 'Global Feed', TIER1: 'Tier-1 Markets', ASIA: 'Asia-Pacific', EUROPE: 'Europe', AMERICAS: 'Americas', MEA: 'MEA' },
         allCountriesOpt: (n) => `🏳️ All ${n} Countries`,
-        localBtn: (flag, name) => `📍 Local: ${flag} ${name}`,
+        localBtn: (flag, name) => `📍 Local Only: ${flag} ${name}`,
         sortTraffic: '🔥 Highest Search Volume',
         sortDefault: '⚡ By Country Population',
-        sectionTitle: '📡 Real-Time Viral Radar',
+        sectionTitle: '📡 Real-Time Viral Radar (Auto-Translated)',
         showing: (shown, total) => `Showing ${shown} of ${total} live trends`,
         loadMore: (rem) => `Load More Viral Trends (${rem} remaining) ▾`,
         empty: 'No trending topics found matching your filter.',
-        top1Badge: '👑 #1 TRENDING NOW',
+        top1Badge: '👑 #1 GLOBAL TREND',
         readFull: 'Read Full Story ↗',
         readShort: 'Full Story ↗',
         shareFull: '📋 Copy Viral Post',
         shareShort: '📋 Share',
         sourcePrefix: 'Source: ',
+        origPrefix: 'Original: ',
         smartTag: '⚡ AI SURGE DETECTOR · 1M+ VELOCITY',
         smartTitle: 'The #1 Viral Story Blowing Up Right Now Before Mainstream News',
         smartDesc: 'Cross-border search volume spiked +480% in the last 60 mins. Tap to unlock the full breakdown & viral clips.',
         smartCta: 'Unlock Full Viral Breakdown ➔',
         toast: '✅ Viral hook & link copied! Ready to paste on X / Threads.',
-        shareTemplate: (kw, hk, tr, url) => `🔥 Trending right now (${tr}): ${kw}\n${hk}\n👇 Full breakdown & context:\n${url}`
+        shareTemplate: (kw, hk, tr, url) => `🔥 Trending globally right now (${tr}): ${kw}\n${hk}\n👇 Full breakdown & context:\n${url}`
       },
       'ja': {
         ticker: 'LIVE 世界急上昇',
         searchPlaceholder: '54ヶ国のトレンドを検索...',
         groups: { ALL: '世界総合', TIER1: '主要先進国', ASIA: 'アジア太平洋', EUROPE: 'ヨーロッパ', AMERICAS: 'アメリカ大陸', MEA: '中東・アフリカ' },
         allCountriesOpt: (n) => `🏳️ 全 ${n} ヶ国・地域`,
-        localBtn: (flag, name) => `📍 地域トレンド: ${flag} ${name}`,
+        localBtn: (flag, name) => `📍 自国のみ: ${flag} ${name}`,
         sortTraffic: '🔥 検索ボリューム順 (高い順)',
         sortDefault: '⚡ 人口規模順',
-        sectionTitle: '📡 リアルタイム急上昇レーダー',
+        sectionTitle: '📡 リアルタイム急上昇レーダー（自動翻訳済）',
         showing: (shown, total) => `${total} 件中 ${shown} 件を表示中`,
         loadMore: (rem) => `さらに表示する (残り ${rem} 件) ▾`,
         empty: '該当するトレンドが見つかりませんでした。',
-        top1Badge: '👑 現在トレンド 1位',
+        top1Badge: '👑 世界トレンド 1位',
         readFull: '詳しい経緯を見る ↗',
         readShort: '詳細を見る ↗',
         shareFull: '📋 SNS拡散用コピー',
         shareShort: '📋 共有',
         sourcePrefix: '情報元：',
+        origPrefix: '原文：',
         smartTag: '⚡ AI 急上昇予測 · 100万検索突破枠',
         smartTitle: '今世界で爆発的に検索されている注目の急上昇トピックまとめ',
         smartDesc: '過去60分で検索数が480%急増中。クリックして詳細な背景と関連まとめをチェック。',
         smartCta: '今すぐ詳細まとめを見る ➔',
         toast: '✅ 投稿文とURLをコピーしました！XやSNSに貼り付けて共有できます。',
-        shareTemplate: (kw, hk, tr, url) => `🔥 急上昇トレンド（${tr}）：${kw}\n${hk}\n👇 詳しい理由とまとめはこちら：\n${url}`
+        shareTemplate: (kw, hk, tr, url) => `🔥 世界で急上昇中（${tr}）：${kw}\n${hk}\n👇 詳しい理由とまとめはこちら：\n${url}`
+      },
+      'ko': {
+        ticker: 'LIVE 글로벌 급상승',
+        searchPlaceholder: '54개국 실시간 트렌드 검색...',
+        groups: { ALL: '글로벌 전체', TIER1: '주요 선진국', ASIA: '아시아 태평양', EUROPE: '유럽', AMERICAS: '아메리카', MEA: '중동/아프리카' },
+        allCountriesOpt: (n) => `🏳️ 전체 ${n}개 국가/지역`,
+        localBtn: (flag, name) => `📍 내 지역만: ${flag} ${name}`,
+        sortTraffic: '🔥 검색량 순 (높은 순)',
+        sortDefault: '⚡ 인구 규모 순',
+        sectionTitle: '📡 실시간 급상승 레이더 (자동 번역됨)',
+        showing: (shown, total) => `${total}개 중 ${shown}개 표시 중`,
+        loadMore: (rem) => `트렌드 더 보기 (${rem}개 남음) ▾`,
+        empty: '조건에 맞는 검색 결과가 없습니다.',
+        top1Badge: '👑 글로벌 트렌드 1위',
+        readFull: '전체 스토리 보기 ↗',
+        readShort: '자세히 보기 ↗',
+        shareFull: '📋 바이럴 문구 복사',
+        shareShort: '📋 공유',
+        sourcePrefix: '출처: ',
+        origPrefix: '원문: ',
+        smartTag: '⚡ AI 급상승 예측 · 100만+ 검색 돌파',
+        smartTitle: '지금 전 세계에서 폭발적으로 검색되고 있는 화제의 1위 이슈',
+        smartDesc: '지난 60분간 국가 간 검색량이 480% 급증했습니다. 클릭하여 전체 요약과 관련 소식을 확인하세요.',
+        smartCta: '전체 요약 지금 확인하기 ➔',
+        toast: '✅ 게시물과 링크가 복사되었습니다! SNS에 바로 붙여넣기 하세요.',
+        shareTemplate: (kw, hk, tr, url) => `🔥 지금 전 세계 급상승 중 (${tr}): ${kw}\n${hk}\n👇 자세한 내용 확인하기:\n${url}`
       },
       'es': {
-        ticker: 'EN VIVO · TENDENCIAS',
+        ticker: 'EN VIVO · GLOBAL',
         searchPlaceholder: 'Buscar en 54 países...',
         groups: { ALL: 'Global', TIER1: 'Mercados Top', ASIA: 'Asia-Pacífico', EUROPE: 'Europa', AMERICAS: 'Américas', MEA: 'Oriente Medio/África' },
         allCountriesOpt: (n) => `🏳️ Todos los ${n} países`,
-        localBtn: (flag, name) => `📍 Local: ${flag} ${name}`,
+        localBtn: (flag, name) => `📍 Solo Local: ${flag} ${name}`,
         sortTraffic: '🔥 Mayor Volumen de Búsqueda',
         sortDefault: '⚡ Por Población',
-        sectionTitle: '📡 Radar Viral en Tiempo Real',
+        sectionTitle: '📡 Radar Viral en Tiempo Real (Traducido)',
         showing: (shown, total) => `Mostrando ${shown} de ${total} tendencias`,
         loadMore: (rem) => `Cargar más tendencias (${rem} restantes) ▾`,
         empty: 'No se encontraron tendencias con ese filtro.',
-        top1Badge: '👑 #1 TENDENCIA AHORA',
+        top1Badge: '👑 #1 TENDENCIA GLOBAL',
         readFull: 'Leer Historia Completa ↗',
         readShort: 'Ver Más ↗',
         shareFull: '📋 Copiar Post Viral',
         shareShort: '📋 Compartir',
         sourcePrefix: 'Fuente: ',
+        origPrefix: 'Original: ',
         smartTag: '⚡ DETECTOR IA · +1M BÚSQUEDAS',
         smartTitle: 'La Historia Viral #1 que Explota Ahora Mismo Antes que las Noticias',
         smartDesc: 'Las búsquedas subieron +480% en los últimos 60 minutos. Toca para ver el resumen completo.',
         smartCta: 'Desbloquear Resumen Completo ➔',
         toast: '✅ ¡Texto y enlace copiados! Listo para pegar en X / Threads.',
-        shareTemplate: (kw, hk, tr, url) => `🔥 Tendencia ahora (${tr}): ${kw}\n${hk}\n👇 Resumen completo aquí:\n${url}`
+        shareTemplate: (kw, hk, tr, url) => `🔥 Tendencia global ahora (${tr}): ${kw}\n${hk}\n👇 Resumen completo aquí:\n${url}`
       },
       'pt': {
-        ticker: 'AO VIVO · EM ALTA',
+        ticker: 'AO VIVO · GLOBAL',
         searchPlaceholder: 'Buscar em 54 países...',
         groups: { ALL: 'Global', TIER1: 'Mercados Top', ASIA: 'Ásia-Pacífico', EUROPE: 'Europa', AMERICAS: 'Américas', MEA: 'Oriente Médio/África' },
         allCountriesOpt: (n) => `🏳️ Todos os ${n} países`,
-        localBtn: (flag, name) => `📍 Local: ${flag} ${name}`,
+        localBtn: (flag, name) => `📍 Apenas Local: ${flag} ${name}`,
         sortTraffic: '🔥 Maior Volume de Busca',
         sortDefault: '⚡ Por População',
-        sectionTitle: '📡 Radar Viral em Tempo Real',
+        sectionTitle: '📡 Radar Viral em Tempo Real (Traduzido)',
         showing: (shown, total) => `Mostrando ${shown} de ${total} tendências`,
         loadMore: (rem) => `Carregar mais tendências (${rem} restantes) ▾`,
         empty: 'Nenhuma tendência encontrada para este filtro.',
-        top1Badge: '👑 #1 EM ALTA AGORA',
+        top1Badge: '👑 #1 EM ALTA GLOBAL',
         readFull: 'Ler Matéria Completa ↗',
         readShort: 'Ver Mais ↗',
         shareFull: '📋 Copiar Post Viral',
         shareShort: '📋 Compartilhar',
         sourcePrefix: 'Fonte: ',
+        origPrefix: 'Original: ',
         smartTag: '⚡ DETECTOR IA · +1M BUSCAS',
         smartTitle: 'A História Viral #1 Bombando Agora Antes dos Grandes Portais',
         smartDesc: 'As buscas dispararam +480% nos últimos 60 minutos. Toque para ver o resumo completo.',
         smartCta: 'Desbloquear Resumo Completo ➔',
         toast: '✅ Texto e link copiados! Pronto para colar no X / Threads.',
-        shareTemplate: (kw, hk, tr, url) => `🔥 Em alta agora (${tr}): ${kw}\n${hk}\n👇 Resumo completo aqui:\n${url}`
+        shareTemplate: (kw, hk, tr, url) => `🔥 Em alta global agora (${tr}): ${kw}\n${hk}\n👇 Resumo completo aqui:\n${url}`
       }
     };
 
-    // 54 國時區對照表，自動偵測訪客所屬國家與語系
     const TZ_COUNTRY_MAP = {
       'kolkata': 'IN', 'calcutta': 'IN',
       'new_york': 'US', 'chicago': 'US', 'denver': 'US', 'los_angeles': 'US', 'phoenix': 'US', 'detroit': 'US',
@@ -1112,6 +1153,8 @@
         uiLang = 'zh-TW';
       } else if (country === 'JP' || lang.startsWith('ja')) {
         uiLang = 'ja';
+      } else if (country === 'KR' || lang.startsWith('ko')) {
+        uiLang = 'ko';
       } else if (country === 'BR' || country === 'PT' || lang.startsWith('pt')) {
         uiLang = 'pt';
       } else if (['MX', 'ES', 'CO', 'AR', 'PE', 'CL'].includes(country) || lang.startsWith('es')) {
@@ -1119,6 +1162,17 @@
       }
 
       return { uiLang, country };
+    }
+
+    // 取得已翻譯的標題或內文
+    function getLocalizedKw(item) {
+      if (item.kw_i18n && item.kw_i18n[currentLang]) return item.kw_i18n[currentLang];
+      return item.keyword || '';
+    }
+
+    function getLocalizedHk(item) {
+      if (item.hk_i18n && item.hk_i18n[currentLang]) return item.hk_i18n[currentLang];
+      return item.hook || '';
     }
 
     function getCountryName(cObj) {
@@ -1277,10 +1331,14 @@
         : entries.map(([k, v]) => `• ${esc(k)}: <strong>${v}</strong>`).join('<br>');
     }
 
-    function copyViralPost(keyword, hook, traffic) {
+    function copyByIdx(idx) {
+      const item = currentFilteredList[idx];
+      if (!item) return;
       const t = I18N[currentLang] || I18N['en'];
       const siteUrl = window.location.origin + window.location.pathname;
-      const text = t.shareTemplate(keyword, hook, traffic, siteUrl);
+      const kw = getLocalizedKw(item);
+      const hk = getLocalizedHk(item);
+      const text = t.shareTemplate(kw, hk, item.traffic, siteUrl);
       navigator.clipboard.writeText(text).then(() => {
         const toast = document.getElementById('toast');
         toast.innerText = t.toast;
@@ -1301,7 +1359,7 @@
       const html = sorted.map(item => `
         <a class="ticker-item" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('跑馬燈-${esc(item.code)}')">
           <span>${esc(getItemRegionDisplay(item))}</span>
-          <strong>${esc(item.keyword)}</strong>
+          <strong>${esc(getLocalizedKw(item))}</strong>
           <span class="ticker-hot">${esc(item.traffic)}</span>
         </a>
       `).join('');
@@ -1340,11 +1398,16 @@
         }
 
         if (searchQuery) {
-          const matchKw = item.keyword && item.keyword.toLowerCase().includes(searchQuery);
-          const matchHk = item.hook && item.hook.toLowerCase().includes(searchQuery);
+          const locKw = getLocalizedKw(item).toLowerCase();
+          const locHk = getLocalizedHk(item).toLowerCase();
+          const origKw = (item.keyword || '').toLowerCase();
+          const origHk = (item.hook || '').toLowerCase();
           const matchCountry = (item.name_en && item.name_en.toLowerCase().includes(searchQuery)) ||
                                (item.name_zh && item.name_zh.toLowerCase().includes(searchQuery));
-          if (!matchKw && !matchHk && !matchCountry) return false;
+          if (!locKw.includes(searchQuery) && !locHk.includes(searchQuery) &&
+              !origKw.includes(searchQuery) && !origHk.includes(searchQuery) && !matchCountry) {
+            return false;
+          }
         }
         return true;
       });
@@ -1352,6 +1415,8 @@
       if (sortMode === 'traffic') {
         filtered.sort((a, b) => parseTraffic(b.traffic) - parseTraffic(a.traffic));
       }
+
+      currentFilteredList = filtered;
 
       const heroEl = document.getElementById('hero-bento');
       const gridEl = document.getElementById('trends-grid');
@@ -1366,31 +1431,44 @@
       }
 
       const top1 = filtered[0];
-      const top2 = filtered[1];
+      const top1Kw = getLocalizedKw(top1);
+      const top1Hk = getLocalizedHk(top1);
+      const top1OrigHtml = (top1Kw.toLowerCase() !== (top1.keyword || '').toLowerCase())
+        ? `<div class="orig-sub">${t.origPrefix}${esc(top1.keyword)}</div>` : '';
 
-      const sideTopHtml = top2 ? `
-        <article class="side-card">
-          <div>
-            <div class="hero-badges" style="margin-bottom:8px;">
-              <span class="badge-region">${esc(getItemRegionDisplay(top2))}</span>
-              <span class="badge-traffic">${esc(top2.traffic)}</span>
+      const top2 = filtered[1];
+      let sideTopHtml = '';
+      if (top2) {
+        const top2Kw = getLocalizedKw(top2);
+        const top2Hk = getLocalizedHk(top2);
+        const top2OrigHtml = (top2Kw.toLowerCase() !== (top2.keyword || '').toLowerCase())
+          ? `<div class="card-orig">${t.origPrefix}${esc(top2.keyword)}</div>` : '';
+
+        sideTopHtml = `
+          <article class="side-card">
+            <div>
+              <div class="hero-badges" style="margin-bottom:8px;">
+                <span class="badge-region">${esc(getItemRegionDisplay(top2))}</span>
+                <span class="badge-traffic">${esc(top2.traffic)}</span>
+              </div>
+              <h3 style="font-size:1.15rem;font-weight:800;margin-bottom:4px;color:#fff;">${esc(top2Kw)}</h3>
+              ${top2OrigHtml}
+              <p style="font-size:0.85rem;color:var(--text-sub);margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${esc(top2Hk)}</p>
             </div>
-            <h3 style="font-size:1.15rem;font-weight:800;margin-bottom:6px;color:#fff;">${esc(top2.keyword)}</h3>
-            <p style="font-size:0.85rem;color:var(--text-sub);margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${esc(top2.hook)}</p>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span class="source-name">${t.sourcePrefix}${esc(top2.source)}</span>
-            <div class="card-btns">
-              <button class="mini-share" onclick="copyViralPost('${esc(top2.keyword)}','${esc(top2.hook)}','${esc(top2.traffic)}')">${t.shareShort}</button>
-              <a class="read-cta" href="${esc(top2.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('Hero2-${esc(top2.code)}')">${t.readShort}</a>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="source-name">${t.sourcePrefix}${esc(top2.source)}</span>
+              <div class="card-btns">
+                <button class="mini-share" onclick="copyByIdx(1)">${t.shareShort}</button>
+                <a class="read-cta" href="${esc(top2.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('Hero2-${esc(top2.code)}')">${t.readShort}</a>
+              </div>
             </div>
-          </div>
-        </article>
-      ` : '';
+          </article>
+        `;
+      }
 
       heroEl.innerHTML = `
         <article class="hero-main">
-          ${top1.picture ? `<img class="hero-bg" src="${esc(top1.picture)}" alt="${esc(top1.keyword)}" onerror="this.style.display='none'">` : ''}
+          ${top1.picture ? `<img class="hero-bg" src="${esc(top1.picture)}" alt="${esc(top1Kw)}" onerror="this.style.display='none'">` : ''}
           <div class="hero-gradient"></div>
           <div class="hero-content">
             <div class="hero-badges">
@@ -1398,13 +1476,14 @@
               <span class="badge-region">${esc(getItemRegionDisplay(top1))}</span>
               <span class="badge-traffic">${esc(top1.traffic)}</span>
             </div>
-            <h2 class="hero-title">${esc(top1.keyword)}</h2>
-            <p class="hero-hook">${esc(top1.hook)}</p>
+            <h2 class="hero-title">${esc(top1Kw)}</h2>
+            ${top1OrigHtml}
+            <p class="hero-hook">${esc(top1Hk)}</p>
             <div class="hero-actions">
               <a class="btn-primary" href="${esc(top1.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('Hero1-${esc(top1.code)}')">
                 ${t.readFull}
               </a>
-              <button class="btn-share" onclick="copyViralPost('${esc(top1.keyword)}','${esc(top1.hook)}','${esc(top1.traffic)}')">
+              <button class="btn-share" onclick="copyByIdx(0)">
                 ${t.shareFull}
               </button>
             </div>
@@ -1421,33 +1500,42 @@
       const totalShown = Math.min(filtered.length, 2 + visibleItems.length);
       document.getElementById('result-count').innerText = t.showing(totalShown, filtered.length);
 
-      gridEl.innerHTML = visibleItems.map(item => `
-        <article class="card">
-          <div class="card-media">
-            ${item.picture
-              ? `<img src="${esc(item.picture)}" alt="${esc(item.keyword)}" loading="lazy" onerror="this.outerHTML='<div class=\\'fallback-cover\\'><span>${esc(item.code)} TRENDING</span><div>${esc(item.keyword)}</div></div>'">`
-              : `<div class="fallback-cover"><span>${esc(item.code)} TRENDING</span><div>${esc(item.keyword)}</div></div>`
-            }
-            <div class="media-badges">
-              <span class="pill-region">${esc(getItemRegionDisplay(item))}</span>
-              <span class="pill-traffic">${esc(item.traffic)}</span>
-            </div>
-          </div>
-          <div class="card-body">
-            <h3 class="card-keyword">${esc(item.keyword)}</h3>
-            <p class="card-hook">${esc(item.hook)}</p>
-            <div class="card-footer">
-              <span class="source-name">${esc(item.source)}</span>
-              <div class="card-btns">
-                <button class="mini-share" onclick="copyViralPost('${esc(item.keyword)}','${esc(item.hook)}','${esc(item.traffic)}')">${t.shareShort}</button>
-                <a class="read-cta" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('${esc(item.code)}-${esc(item.keyword)}')">
-                  ${t.readShort}
-                </a>
+      gridEl.innerHTML = visibleItems.map((item, idx) => {
+        const realIdx = idx + 2;
+        const kw = getLocalizedKw(item);
+        const hk = getLocalizedHk(item);
+        const origLine = (kw.toLowerCase() !== (item.keyword || '').toLowerCase())
+          ? `<div class="card-orig">${t.origPrefix}${esc(item.keyword)}</div>` : '';
+
+        return `
+          <article class="card">
+            <div class="card-media">
+              ${item.picture
+                ? `<img src="${esc(item.picture)}" alt="${esc(kw)}" loading="lazy" onerror="this.outerHTML='<div class=\\'fallback-cover\\'><span>${esc(item.code)} TRENDING</span><div>${esc(kw)}</div></div>'">`
+                : `<div class="fallback-cover"><span>${esc(item.code)} TRENDING</span><div>${esc(kw)}</div></div>`
+              }
+              <div class="media-badges">
+                <span class="pill-region">${esc(getItemRegionDisplay(item))}</span>
+                <span class="pill-traffic">${esc(item.traffic)}</span>
               </div>
             </div>
-          </div>
-        </article>
-      `).join('');
+            <div class="card-body">
+              <h3 class="card-keyword">${esc(kw)}</h3>
+              ${origLine}
+              <p class="card-hook">${esc(hk)}</p>
+              <div class="card-footer">
+                <span class="source-name">${esc(item.source)}</span>
+                <div class="card-btns">
+                  <button class="mini-share" onclick="copyByIdx(${realIdx})">${t.shareShort}</button>
+                  <a class="read-cta" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('${esc(item.code)}-${esc(item.keyword)}')">
+                    ${t.readShort}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
 
       const remaining = rest.length - visibleItems.length;
       if (remaining > 0) {
@@ -1471,19 +1559,13 @@
         allItems = data.items || [];
         countriesMeta = data.countries || [];
         const cCount = data.countries_count || countriesMeta.length || 54;
-        document.getElementById('brand-sub').innerText = `${cCount} COUNTRIES VIRAL RADAR`;
+        document.getElementById('brand-sub').innerText = `${cCount} COUNTRIES AUTO-TRANSLATED RADAR`;
         document.getElementById('update-badge').innerText = `LIVE · ${data.updated_at.slice(5)}`;
 
         populateCountryDropdown();
         updateLocalButton();
         renderTicker();
-
-        // 若訪客所在國家在 54 國名單內，預設先顯示該國熱搜；同時保留一鍵切回全球總覽
-        if (detectedCountryCode && countriesMeta.some(c => c.code === detectedCountryCode)) {
-          selectLocalCountry();
-        } else {
-          renderAll();
-        }
+        renderAll();
       } catch (e) {
         document.getElementById('update-badge').innerText = 'OFFLINE';
       }
