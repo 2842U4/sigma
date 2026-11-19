@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SIGMA PULSE | 全球即時熱搜與爆紅情報雷達</title>
-  <meta name="description" content="24小時全自動追蹤美國、英國、台灣、日本 Google 破百萬即時熱搜話題與懶人包。" />
+  <title>SIGMA PULSE | Global Real-Time Viral Trends Radar</title>
+  <meta name="description" content="24/7 Automated Global Google Trends & Viral News Intelligence across US, UK, Taiwan, and Japan." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-base: #070a11;
@@ -15,7 +15,7 @@
       --bg-card: #131c2e;
       --bg-card-hover: #182338;
       --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(56, 189, 248, 0.4);
+      --border-hover: rgba(56, 189, 248, 0.45);
       --text-main: #f8fafc;
       --text-sub: #94a3b8;
       --text-muted: #64748b;
@@ -29,11 +29,11 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', 'Noto Sans TC', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg-base);
       background-image:
-        radial-gradient(circle at 15% 0%, rgba(255, 46, 76, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 85% 10%, rgba(56, 189, 248, 0.08) 0%, transparent 40%);
+        radial-gradient(circle at 15% 0%, rgba(255, 46, 76, 0.09) 0%, transparent 42%),
+        radial-gradient(circle at 85% 10%, rgba(56, 189, 248, 0.09) 0%, transparent 42%);
       color: var(--text-main);
       line-height: 1.55;
       min-height: 100vh;
@@ -108,12 +108,12 @@
       font-size: 0.75rem;
     }
 
-    /* 2. 玻璃擬態導覽列 */
+    /* 2. 玻璃擬態頂部導覽列 */
     .navbar {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(7, 10, 17, 0.82);
+      background: rgba(7, 10, 17, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
@@ -121,12 +121,12 @@
     .nav-inner {
       max-width: 1240px;
       margin: 0 auto;
-      padding: 14px 20px;
+      padding: 13px 20px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
     }
     .brand {
       display: flex;
@@ -153,7 +153,7 @@
     }
     .brand-title span { color: var(--crimson); }
     .brand-sub {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
       font-family: 'JetBrains Mono', monospace;
     }
@@ -161,24 +161,22 @@
     .nav-tools {
       display: flex;
       align-items: center;
-      gap: 12px;
-      flex: 1;
-      max-width: 520px;
+      gap: 10px;
+      flex-wrap: wrap;
       justify-content: flex-end;
     }
     .search-box {
       position: relative;
-      flex: 1;
-      max-width: 300px;
+      width: 220px;
     }
     .search-box input {
       width: 100%;
       background: var(--bg-surface);
       border: 1px solid var(--border);
       color: var(--text-main);
-      padding: 8px 14px 8px 34px;
+      padding: 7px 12px 7px 32px;
       border-radius: 999px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       outline: none;
       transition: all 0.2s;
     }
@@ -189,19 +187,41 @@
     .search-box::before {
       content: "🔍";
       position: absolute;
-      left: 12px;
+      left: 11px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       opacity: 0.6;
+    }
+    .lang-switch {
+      display: inline-flex;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 2px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .lang-btn.active {
+      background: var(--cyan);
+      color: #070a11;
     }
     .live-status {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       color: var(--emerald);
       background: rgba(16, 185, 129, 0.1);
       border: 1px solid rgba(16, 185, 129, 0.25);
-      padding: 6px 11px;
+      padding: 5px 10px;
       border-radius: 999px;
       white-space: nowrap;
     }
@@ -254,9 +274,9 @@
       background: var(--bg-surface);
       border: 1px solid var(--border);
       color: var(--text-sub);
-      padding: 8px 15px;
+      padding: 8px 14px;
       border-radius: 10px;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
@@ -280,7 +300,7 @@
       font-size: 0.72rem;
       padding: 1px 6px;
       border-radius: 999px;
-      background: rgba(128, 128, 128, 0.2);
+      background: rgba(128, 128, 128, 0.22);
     }
     .sort-select {
       background: var(--bg-surface);
@@ -288,7 +308,7 @@
       color: var(--text-main);
       padding: 8px 14px;
       border-radius: 10px;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       font-weight: 600;
       cursor: pointer;
       outline: none;
@@ -422,7 +442,7 @@
     }
     .btn-share:hover { background: rgba(255, 255, 255, 0.2); }
 
-    /* 右側雙卡片欄（第2名 ＋ 高轉化 Smartlink 情報卡） */
+    /* 右側雙卡片欄 */
     .hero-side {
       display: flex;
       flex-direction: column;
@@ -498,7 +518,7 @@
       width: 100%;
     }
 
-    /* 5. 無痕原生廣告容器（沒廣告時自動隱形，不留白框） */
+    /* 5. 無痕原生廣告容器 */
     .native-ad-wrapper {
       margin-bottom: 24px;
       border-radius: 14px;
@@ -542,7 +562,6 @@
       background: var(--bg-card-hover);
     }
 
-    /* 封面圖 ＋ 無圖自動雜誌封面生成 */
     .card-media {
       position: relative;
       height: 165px;
@@ -691,7 +710,6 @@
       color: #070a11;
     }
 
-    /* Toast 提示通知 */
     #toast {
       position: fixed;
       bottom: 24px;
@@ -728,10 +746,10 @@
 
   <!-- 1. 全球即時熱搜跑馬燈 -->
   <div class="ticker-bar">
-    <div class="ticker-label"><span class="pulse-dot"></span> LIVE 飆升榜</div>
+    <div class="ticker-label"><span class="pulse-dot"></span> <span id="t-ticker">LIVE 飆升榜</span></div>
     <div class="ticker-track-wrap">
       <div class="ticker-track" id="ticker-track">
-        <span class="ticker-item">正在同步全球 4 大地區 Google Trends 即時數據...</span>
+        <span class="ticker-item">Syncing Global Google Trends...</span>
       </div>
     </div>
   </div>
@@ -749,7 +767,12 @@
 
       <div class="nav-tools">
         <div class="search-box">
-          <input type="text" id="search-input" placeholder="搜尋關鍵字、話題、人物..." oninput="handleSearch()" />
+          <input type="text" id="search-input" placeholder="搜尋關鍵字、話題..." oninput="handleSearch()" />
+        </div>
+        <div class="lang-switch">
+          <button class="lang-btn" data-lang="zh-TW" onclick="setLang('zh-TW')">繁中</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">日本語</button>
         </div>
         <div class="live-status" id="update-badge">SYNCING...</div>
       </div>
@@ -767,16 +790,16 @@
     <!-- 3. 地區切換與熱度排序列 -->
     <div class="controls-bar">
       <div class="region-tabs" id="region-tabs">
-        <button class="tab-btn active" data-code="ALL" onclick="setRegion('ALL', this)">🌐 全球總覽 <span class="tab-count" id="cnt-ALL">0</span></button>
-        <button class="tab-btn" data-code="US" onclick="setRegion('US', this)">🇺🇸 美國 <span class="tab-count" id="cnt-US">0</span></button>
-        <button class="tab-btn" data-code="GB" onclick="setRegion('GB', this)">🇬🇧 英國 <span class="tab-count" id="cnt-GB">0</span></button>
-        <button class="tab-btn" data-code="TW" onclick="setRegion('TW', this)">🇹🇼 台灣 <span class="tab-count" id="cnt-TW">0</span></button>
-        <button class="tab-btn" data-code="JP" onclick="setRegion('JP', this)">🇯🇵 日本 <span class="tab-count" id="cnt-JP">0</span></button>
+        <button class="tab-btn" data-code="ALL" onclick="setRegion('ALL')">🌐 <span id="t-tab-ALL">全球總覽</span> <span class="tab-count" id="cnt-ALL">0</span></button>
+        <button class="tab-btn" data-code="US" onclick="setRegion('US')">🇺🇸 <span id="t-tab-US">美國</span> <span class="tab-count" id="cnt-US">0</span></button>
+        <button class="tab-btn" data-code="GB" onclick="setRegion('GB')">🇬🇧 <span id="t-tab-GB">英國</span> <span class="tab-count" id="cnt-GB">0</span></button>
+        <button class="tab-btn" data-code="TW" onclick="setRegion('TW')">🇹🇼 <span id="t-tab-TW">台灣</span> <span class="tab-count" id="cnt-TW">0</span></button>
+        <button class="tab-btn" data-code="JP" onclick="setRegion('JP')">🇯🇵 <span id="t-tab-JP">日本</span> <span class="tab-count" id="cnt-JP">0</span></button>
       </div>
 
       <select class="sort-select" id="sort-select" onchange="renderAll()">
-        <option value="traffic">🔥 依搜尋熱度排序 (最高優先)</option>
-        <option value="default">⚡ 依最新抓取代排序</option>
+        <option value="traffic" id="t-sort-traffic">🔥 依搜尋熱度排序 (最高優先)</option>
+        <option value="default" id="t-sort-default">⚡ 依最新抓取代排序</option>
       </select>
     </div>
 
@@ -791,13 +814,13 @@
 
     <!-- 6. 完整情報網格 -->
     <div class="section-header">
-      <h2 class="section-title">📡 即時趨勢雷達流</h2>
+      <h2 class="section-title" id="t-section-title">📡 即時趨勢雷達流</h2>
       <span id="result-count" style="font-size:0.8rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;"></span>
     </div>
     <section class="grid" id="trends-grid"></section>
   </main>
 
-  <div id="toast">✅ 已複製爆文標題與網址，快去 Threads / X 貼上引流！</div>
+  <div id="toast">✅ Copied!</div>
 
   <footer>
     SIGMA PULSE · Automated Global Search Radar · Updated Every 2 Hours
@@ -806,8 +829,137 @@
   <script>
     const SMARTLINK_URL = "https://asiafilm.org/4/c9fd036ccb50a1833d362caf25bf03ec";
     let allItems = [];
+    let currentLang = 'zh-TW';
     let currentRegion = 'ALL';
     let searchQuery = '';
+
+    const I18N = {
+      'zh-TW': {
+        ticker: 'LIVE 飆升榜',
+        searchPlaceholder: '搜尋關鍵字、話題、人物...',
+        tabs: { ALL: '全球總覽', US: '美國', GB: '英國', TW: '台灣', JP: '日本' },
+        regionLabels: { US: '🇺🇸 美國熱搜', GB: '🇬🇧 英國熱搜', TW: '🇹🇼 台灣熱搜', JP: '🇯🇵 日本熱搜' },
+        sortTraffic: '🔥 依搜尋熱度排序 (最高優先)',
+        sortDefault: '⚡ 依最新抓取代排序',
+        sectionTitle: '📡 即時趨勢雷達流',
+        showing: (n) => `顯示 ${n} 筆即時話題`,
+        empty: '找不到符合條件的熱搜話題，請嘗試其他關鍵字。',
+        top1Badge: '👑 當前熱度 #1',
+        readFull: '閱讀完整事件始末 ↗',
+        readShort: '查看懶人包 ↗',
+        shareFull: '📋 複製爆文引流',
+        shareShort: '📋 轉發',
+        sourcePrefix: '來源：',
+        smartTag: '⚡ AI 演算法即時預測 · 破百萬潛力榜',
+        smartTitle: '全球正在瘋傳但新聞還沒報的 Top 1 爆紅內幕',
+        smartDesc: '系統偵測過去 60 分鐘跨國搜尋量暴增 480%，點擊立即解鎖完整事件懶人包與現場影片。',
+        smartCta: '立即解鎖完整懶人包 ➔',
+        toast: '✅ 已複製爆文標題與網址，快去 Threads / X 貼上引流！',
+        shareTemplate: (kw, hk, tr, url) => `🔥 剛剛衝上熱搜（${tr}）：${kw}\n${hk}\n👇 完整爆紅原因懶人包：\n${url}`
+      },
+      'en': {
+        ticker: 'LIVE SURGING',
+        searchPlaceholder: 'Search keywords, topics, people...',
+        tabs: { ALL: 'Global', US: 'US', GB: 'UK', TW: 'Taiwan', JP: 'Japan' },
+        regionLabels: { US: '🇺🇸 US Trends', GB: '🇬🇧 UK Trends', TW: '🇹🇼 Taiwan Trends', JP: '🇯🇵 Japan Trends' },
+        sortTraffic: '🔥 Sort by Search Volume (Highest)',
+        sortDefault: '⚡ Sort by Latest Feed',
+        sectionTitle: '📡 Real-Time Viral Radar',
+        showing: (n) => `Showing ${n} live trends`,
+        empty: 'No trending topics found matching your filter.',
+        top1Badge: '👑 #1 TRENDING NOW',
+        readFull: 'Read Full Story ↗',
+        readShort: 'Full Story ↗',
+        shareFull: '📋 Copy Viral Post',
+        shareShort: '📋 Share',
+        sourcePrefix: 'Source: ',
+        smartTag: '⚡ AI SURGE DETECTOR · 1M+ VELOCITY',
+        smartTitle: 'The #1 Viral Story Blowing Up Right Now Before Mainstream News',
+        smartDesc: 'Cross-border search volume spiked +480% in the last 60 mins. Tap to unlock the full breakdown & viral clips.',
+        smartCta: 'Unlock Full Viral Breakdown ➔',
+        toast: '✅ Viral hook & link copied! Ready to paste on X / Threads.',
+        shareTemplate: (kw, hk, tr, url) => `🔥 Trending right now (${tr}): ${kw}\n${hk}\n👇 Full breakdown & context:\n${url}`
+      },
+      'ja': {
+        ticker: 'LIVE 急上昇',
+        searchPlaceholder: 'キーワード・話題を検索...',
+        tabs: { ALL: '世界総合', US: 'アメリカ', GB: 'イギリス', TW: '台湾', JP: '日本' },
+        regionLabels: { US: '🇺🇸 米国トレンド', GB: '🇬🇧 英国トレンド', TW: '🇹🇼 台湾トレンド', JP: '🇯🇵 日本トレンド' },
+        sortTraffic: '🔥 検索ボリューム順 (高い順)',
+        sortDefault: '⚡ 最新取得順',
+        sectionTitle: '📡 リアルタイム急上昇レーダー',
+        showing: (n) => `${n} 件の急上昇ワードを表示中`,
+        empty: '該当するトレンドが見つかりませんでした。',
+        top1Badge: '👑 現在トレンド 1位',
+        readFull: '詳しい経緯を見る ↗',
+        readShort: '詳細を見る ↗',
+        shareFull: '📋 SNS拡散用コピー',
+        shareShort: '📋 共有',
+        sourcePrefix: '情報元：',
+        smartTag: '⚡ AI 急上昇予測 · 100万検索突破枠',
+        smartTitle: '今世界で爆発的に検索されている注目の急上昇トピックまとめ',
+        smartDesc: '過去60分で検索数が480%急増中。クリックして詳細な背景と関連まとめをチェック。',
+        smartCta: '今すぐ詳細まとめを見る ➔',
+        toast: '✅ 投稿文とURLをコピーしました！XやSNSに貼り付けて共有できます。',
+        shareTemplate: (kw, hk, tr, url) => `🔥 急上昇トレンド（${tr}）：${kw}\n${hk}\n👇 詳しい理由とまとめはこちら：\n${url}`
+      }
+    };
+
+    // 自動偵測訪客所在地與語系
+    function detectUserLocation() {
+      const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase();
+      const lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+
+      if (tz.includes('taipei') || tz.includes('hong_kong') || lang.includes('zh-tw') || lang.includes('zh-hk') || lang.includes('hant')) {
+        return { lang: 'zh-TW', region: 'TW' };
+      }
+      if (tz.includes('tokyo') || lang.startsWith('ja')) {
+        return { lang: 'ja', region: 'JP' };
+      }
+      if (tz.includes('london') || lang === 'en-gb') {
+        return { lang: 'en', region: 'GB' };
+      }
+      if (tz.startsWith('america/') || lang === 'en-us' || lang === 'en-ca' || lang === 'en-au') {
+        return { lang: 'en', region: 'US' };
+      }
+      if (lang.startsWith('zh')) {
+        return { lang: 'zh-TW', region: 'ALL' };
+      }
+      return { lang: 'en', region: 'ALL' };
+    }
+
+    function applyLanguageUI() {
+      const t = I18N[currentLang] || I18N['en'];
+      document.documentElement.lang = currentLang;
+      document.getElementById('t-ticker').innerText = t.ticker;
+      document.getElementById('search-input').placeholder = t.searchPlaceholder;
+      ['ALL', 'US', 'GB', 'TW', 'JP'].forEach(code => {
+        const el = document.getElementById('t-tab-' + code);
+        if (el) el.innerText = t.tabs[code];
+      });
+      document.getElementById('t-sort-traffic').innerText = t.sortTraffic;
+      document.getElementById('t-sort-default').innerText = t.sortDefault;
+      document.getElementById('t-section-title').innerText = t.sectionTitle;
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === currentLang);
+      });
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      applyLanguageUI();
+      renderTicker();
+      renderAll();
+    }
+
+    function setRegion(code) {
+      currentRegion = code;
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.code === code);
+      });
+      renderAll();
+    }
 
     function esc(str) {
       if (!str) return '';
@@ -825,6 +977,11 @@
       if (clean.includes('M')) return parseFloat(clean) * 1000000;
       if (clean.includes('K')) return parseFloat(clean) * 1000;
       return parseFloat(clean) || 0;
+    }
+
+    function getRegionDisplay(item) {
+      const t = I18N[currentLang] || I18N['en'];
+      return t.regionLabels[item.code] || item.region;
     }
 
     function logClick(label) {
@@ -849,26 +1006,21 @@
       const stats = JSON.parse(localStorage.getItem('sigma_clicks') || '{}');
       const entries = Object.entries(stats).sort((a, b) => b[1] - a[1]);
       document.getElementById('stats-content').innerHTML = entries.length === 0
-        ? '尚無點擊紀錄'
-        : entries.map(([k, v]) => `• ${esc(k)}：<strong>${v}</strong> 次`).join('<br>');
+        ? 'No clicks recorded yet'
+        : entries.map(([k, v]) => `• ${esc(k)}: <strong>${v}</strong>`).join('<br>');
     }
 
     function copyViralPost(keyword, hook, traffic) {
+      const t = I18N[currentLang] || I18N['en'];
       const siteUrl = window.location.origin + window.location.pathname;
-      const text = `🔥 剛剛衝上熱搜（${traffic}）：${keyword}\n${hook}\n👇 完整爆紅原因懶人包：\n${siteUrl}`;
+      const text = t.shareTemplate(keyword, hook, traffic, siteUrl);
       navigator.clipboard.writeText(text).then(() => {
         const toast = document.getElementById('toast');
+        toast.innerText = t.toast;
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2600);
         logClick('複製引流文案');
       });
-    }
-
-    function setRegion(code, btn) {
-      currentRegion = code;
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderAll();
     }
 
     function handleSearch() {
@@ -889,7 +1041,7 @@
       if (!sorted.length) return;
       const html = sorted.map(item => `
         <a class="ticker-item" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('跑馬燈-${esc(item.keyword)}')">
-          <span>${esc(item.region)}</span>
+          <span>${esc(getRegionDisplay(item))}</span>
           <strong>${esc(item.keyword)}</strong>
           <span class="ticker-hot">${esc(item.traffic)}</span>
         </a>
@@ -898,23 +1050,25 @@
     }
 
     function buildSmartlinkCard() {
+      const t = I18N[currentLang] || I18N['en'];
       return `
         <a class="side-card smartlink-card"
            href="${SMARTLINK_URL}"
            target="_blank"
            rel="noopener noreferrer"
-           onclick="logClick('Hero高轉化情報卡')">
+           onclick="logClick('Hero高轉化情報卡-${currentLang}')">
           <div>
-            <span class="smartlink-tag">⚡ AI 演算法即時預測 · 破百萬潛力榜</span>
-            <h3 class="smartlink-title">全球正在瘋傳但新聞還沒報的 Top 1 爆紅內幕</h3>
-            <p class="smartlink-desc">系統偵測過去 60 分鐘跨國搜尋量暴增 480%，點擊立即解鎖完整事件懶人包與現場影片。</p>
+            <span class="smartlink-tag">${t.smartTag}</span>
+            <h3 class="smartlink-title">${t.smartTitle}</h3>
+            <p class="smartlink-desc">${t.smartDesc}</p>
           </div>
-          <div class="smartlink-cta">立即解鎖完整懶人包 ➔</div>
+          <div class="smartlink-cta">${t.smartCta}</div>
         </a>
       `;
     }
 
     function renderAll() {
+      const t = I18N[currentLang] || I18N['en'];
       const sortMode = document.getElementById('sort-select').value;
       let filtered = allItems.filter(item => {
         const matchRegion = currentRegion === 'ALL' || item.code === currentRegion;
@@ -928,18 +1082,17 @@
         filtered.sort((a, b) => parseTraffic(b.traffic) - parseTraffic(a.traffic));
       }
 
-      document.getElementById('result-count').innerText = `顯示 ${filtered.length} 筆即時話題`;
+      document.getElementById('result-count').innerText = t.showing(filtered.length);
 
       const heroEl = document.getElementById('hero-bento');
       const gridEl = document.getElementById('trends-grid');
 
       if (filtered.length === 0) {
         heroEl.innerHTML = '';
-        gridEl.innerHTML = '<p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:40px 0;">找不到符合條件的熱搜話題，請嘗試其他關鍵字。</p>';
+        gridEl.innerHTML = `<p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:40px 0;">${t.empty}</p>`;
         return;
       }
 
-      // Hero #1 頭條與右側雙卡
       const top1 = filtered[0];
       const top2 = filtered[1];
 
@@ -947,17 +1100,17 @@
         <article class="side-card">
           <div>
             <div class="hero-badges" style="margin-bottom:8px;">
-              <span class="badge-region">${esc(top2.region)}</span>
+              <span class="badge-region">${esc(getRegionDisplay(top2))}</span>
               <span class="badge-traffic">${esc(top2.traffic)}</span>
             </div>
             <h3 style="font-size:1.15rem;font-weight:800;margin-bottom:6px;color:#fff;">${esc(top2.keyword)}</h3>
             <p style="font-size:0.85rem;color:var(--text-sub);margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${esc(top2.hook)}</p>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span class="source-name">來源：${esc(top2.source)}</span>
+            <span class="source-name">${t.sourcePrefix}${esc(top2.source)}</span>
             <div class="card-btns">
-              <button class="mini-share" onclick="copyViralPost('${esc(top2.keyword)}','${esc(top2.hook)}','${esc(top2.traffic)}')">📋 轉發</button>
-              <a class="read-cta" href="${esc(top2.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('Hero2-${esc(top2.keyword)}')">看懶人包 ↗</a>
+              <button class="mini-share" onclick="copyViralPost('${esc(top2.keyword)}','${esc(top2.hook)}','${esc(top2.traffic)}')">${t.shareShort}</button>
+              <a class="read-cta" href="${esc(top2.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('Hero2-${esc(top2.keyword)}')">${t.readShort}</a>
             </div>
           </div>
         </article>
@@ -969,18 +1122,18 @@
           <div class="hero-gradient"></div>
           <div class="hero-content">
             <div class="hero-badges">
-              <span class="badge-top1">👑 當前熱度 #1</span>
-              <span class="badge-region">${esc(top1.region)}</span>
+              <span class="badge-top1">${t.top1Badge}</span>
+              <span class="badge-region">${esc(getRegionDisplay(top1))}</span>
               <span class="badge-traffic">${esc(top1.traffic)}</span>
             </div>
             <h2 class="hero-title">${esc(top1.keyword)}</h2>
             <p class="hero-hook">${esc(top1.hook)}</p>
             <div class="hero-actions">
               <a class="btn-primary" href="${esc(top1.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('Hero1-${esc(top1.keyword)}')">
-                閱讀完整事件始末 ↗
+                ${t.readFull}
               </a>
               <button class="btn-share" onclick="copyViralPost('${esc(top1.keyword)}','${esc(top1.hook)}','${esc(top1.traffic)}')">
-                📋 複製爆文引流
+                ${t.shareFull}
               </button>
             </div>
           </div>
@@ -991,7 +1144,6 @@
         </div>
       `;
 
-      // 其餘卡片（第 3 名起）
       const rest = filtered.slice(2);
       gridEl.innerHTML = rest.map(item => `
         <article class="card">
@@ -1001,7 +1153,7 @@
               : `<div class="fallback-cover"><span>TRENDING INTEL</span><div>${esc(item.keyword)}</div></div>`
             }
             <div class="media-badges">
-              <span class="pill-region">${esc(item.region)}</span>
+              <span class="pill-region">${esc(getRegionDisplay(item))}</span>
               <span class="pill-traffic">${esc(item.traffic)}</span>
             </div>
           </div>
@@ -1011,9 +1163,9 @@
             <div class="card-footer">
               <span class="source-name">${esc(item.source)}</span>
               <div class="card-btns">
-                <button class="mini-share" title="複製爆文引流文案" onclick="copyViralPost('${esc(item.keyword)}','${esc(item.hook)}','${esc(item.traffic)}')">📋 轉發</button>
+                <button class="mini-share" onclick="copyViralPost('${esc(item.keyword)}','${esc(item.hook)}','${esc(item.traffic)}')">${t.shareShort}</button>
                 <a class="read-cta" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('${esc(item.code)}-${esc(item.keyword)}')">
-                  查看懶人包 ↗
+                  ${t.readShort}
                 </a>
               </div>
             </div>
@@ -1023,7 +1175,12 @@
     }
 
     async function init() {
+      const detected = detectUserLocation();
+      currentLang = detected.lang;
+      currentRegion = detected.region;
+      applyLanguageUI();
       renderStats();
+
       try {
         const res = await fetch('trends.json?t=' + Date.now());
         const data = await res.json();
@@ -1031,7 +1188,7 @@
         document.getElementById('update-badge').innerText = `LIVE · ${data.updated_at.slice(5)}`;
         updateCounts();
         renderTicker();
-        renderAll();
+        setRegion(currentRegion);
       } catch (e) {
         document.getElementById('update-badge').innerText = 'OFFLINE';
       }
