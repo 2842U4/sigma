@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SIGMA PULSE | Global Real-Time Viral Trends Radar</title>
-  <meta name="description" content="24/7 Automated Global Google Trends & Viral News Intelligence across US, UK, Taiwan, and Japan." />
+  <title>SIGMA PULSE | Global Real-Time Viral Intelligence (54 Countries)</title>
+  <meta name="description" content="Real-time Google Trends & viral intelligence across 54 countries including US, India, UK, Brazil, Japan, Taiwan, and Europe." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+JP:wght@400;700;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-base: #070a11;
-      --bg-surface: #0f1623;
-      --bg-card: #131c2e;
-      --bg-card-hover: #182338;
+      --bg-base: #060910;
+      --bg-surface: #0e1522;
+      --bg-card: #121b2d;
+      --bg-card-hover: #17233a;
       --border: rgba(255, 255, 255, 0.08);
       --border-hover: rgba(56, 189, 248, 0.45);
       --text-main: #f8fafc;
@@ -24,6 +24,7 @@
       --cyan: #38bdf8;
       --amber: #f59e0b;
       --emerald: #10b981;
+      --purple: #a855f7;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,8 +33,8 @@
       font-family: 'Inter', 'Noto Sans TC', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg-base);
       background-image:
-        radial-gradient(circle at 15% 0%, rgba(255, 46, 76, 0.09) 0%, transparent 42%),
-        radial-gradient(circle at 85% 10%, rgba(56, 189, 248, 0.09) 0%, transparent 42%);
+        radial-gradient(circle at 12% 0%, rgba(255, 46, 76, 0.09) 0%, transparent 40%),
+        radial-gradient(circle at 88% 8%, rgba(56, 189, 248, 0.09) 0%, transparent 40%);
       color: var(--text-main);
       line-height: 1.55;
       min-height: 100vh;
@@ -41,7 +42,7 @@
 
     /* 1. 頂部即時快訊跑馬燈 */
     .ticker-bar {
-      background: #04060b;
+      background: #03050a;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -61,7 +62,7 @@
       white-space: nowrap;
       letter-spacing: 0.5px;
       z-index: 2;
-      box-shadow: 4px 0 12px rgba(0,0,0,0.5);
+      box-shadow: 4px 0 14px rgba(0,0,0,0.6);
     }
     .pulse-dot {
       width: 7px;
@@ -84,7 +85,7 @@
       gap: 32px;
       white-space: nowrap;
       padding-left: 20px;
-      animation: marquee 45s linear infinite;
+      animation: marquee 55s linear infinite;
     }
     .ticker-track:hover { animation-play-state: paused; }
     @keyframes marquee {
@@ -113,15 +114,15 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(7, 10, 17, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(6, 9, 16, 0.86);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
     }
     .nav-inner {
-      max-width: 1240px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 13px 20px;
+      padding: 12px 20px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -136,8 +137,8 @@
       color: #fff;
     }
     .brand-icon {
-      width: 34px;
-      height: 34px;
+      width: 35px;
+      height: 35px;
       border-radius: 9px;
       background: linear-gradient(135deg, var(--crimson), #ff6b35);
       display: grid;
@@ -153,7 +154,7 @@
     }
     .brand-title span { color: var(--crimson); }
     .brand-sub {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--text-muted);
       font-family: 'JetBrains Mono', monospace;
     }
@@ -167,7 +168,7 @@
     }
     .search-box {
       position: relative;
-      width: 220px;
+      width: 210px;
     }
     .search-box input {
       width: 100%;
@@ -190,7 +191,7 @@
       left: 11px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       opacity: 0.6;
     }
     .lang-switch {
@@ -204,20 +205,20 @@
       background: transparent;
       border: none;
       color: var(--text-sub);
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 4px 9px;
+      padding: 4px 8px;
       border-radius: 999px;
       cursor: pointer;
       transition: all 0.15s;
     }
     .lang-btn.active {
       background: var(--cyan);
-      color: #070a11;
+      color: #060910;
     }
     .live-status {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.73rem;
+      font-size: 0.72rem;
       color: var(--emerald);
       background: rgba(16, 185, 129, 0.1);
       border: 1px solid rgba(16, 185, 129, 0.25);
@@ -228,7 +229,7 @@
 
     /* 主容器 */
     .container {
-      max-width: 1240px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 20px;
     }
@@ -255,7 +256,7 @@
       cursor: pointer;
     }
 
-    /* 3. 篩選與排序控制列 */
+    /* 3. 雙層地理控制列（洲別膠囊 + 54國下拉 + 熱度排序） */
     .controls-bar {
       display: flex;
       flex-wrap: wrap;
@@ -264,9 +265,9 @@
       gap: 12px;
       margin-bottom: 22px;
     }
-    .region-tabs {
+    .group-tabs {
       display: flex;
-      gap: 8px;
+      gap: 7px;
       overflow-x: auto;
       padding-bottom: 4px;
     }
@@ -274,15 +275,15 @@
       background: var(--bg-surface);
       border: 1px solid var(--border);
       color: var(--text-sub);
-      padding: 8px 14px;
+      padding: 8px 13px;
       border-radius: 10px;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       transition: all 0.18s ease;
     }
     .tab-btn:hover {
@@ -291,27 +292,40 @@
     }
     .tab-btn.active {
       background: var(--text-main);
-      color: #070a11;
+      color: #060910;
       border-color: var(--text-main);
       font-weight: 800;
     }
-    .tab-count {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      padding: 1px 6px;
-      border-radius: 999px;
-      background: rgba(128, 128, 128, 0.22);
+    .tab-btn.local-highlight {
+      border-color: rgba(56, 189, 248, 0.45);
+      color: var(--cyan);
     }
-    .sort-select {
+    .tab-btn.local-highlight.active {
+      background: var(--cyan);
+      color: #060910;
+      border-color: var(--cyan);
+    }
+
+    .dropdown-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .control-select {
       background: var(--bg-surface);
       border: 1px solid var(--border);
       color: var(--text-main);
-      padding: 8px 14px;
+      padding: 8px 13px;
       border-radius: 10px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       outline: none;
+      max-width: 230px;
+    }
+    .control-select:focus {
+      border-color: var(--cyan);
     }
 
     /* 4. 頭條 Bento Grid 焦點區 */
@@ -321,7 +335,7 @@
       gap: 18px;
       margin-bottom: 24px;
     }
-    @media (max-width: 860px) {
+    @media (max-width: 880px) {
       .hero-bento { grid-template-columns: 1fr; }
     }
 
@@ -329,7 +343,7 @@
       position: relative;
       border-radius: 18px;
       overflow: hidden;
-      min-height: 360px;
+      min-height: 365px;
       background: var(--bg-card);
       border: 1px solid var(--border);
       display: flex;
@@ -355,7 +369,7 @@
     .hero-gradient {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, #070a11 12%, rgba(7, 10, 17, 0.72) 55%, rgba(7, 10, 17, 0.2) 100%);
+      background: linear-gradient(to top, #060910 12%, rgba(6, 9, 16, 0.72) 55%, rgba(6, 9, 16, 0.18) 100%);
     }
     .hero-content {
       position: relative;
@@ -414,7 +428,7 @@
     }
     .btn-primary {
       background: #fff;
-      color: #070a11;
+      color: #060910;
       text-decoration: none;
       font-weight: 800;
       font-size: 0.88rem;
@@ -543,7 +557,7 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(305px, 1fr));
       gap: 18px;
     }
     .card {
@@ -614,17 +628,17 @@
       pointer-events: none;
     }
     .pill-region {
-      background: rgba(7, 10, 17, 0.78);
+      background: rgba(6, 9, 16, 0.82);
       backdrop-filter: blur(8px);
       color: #fff;
       font-size: 0.74rem;
       font-weight: 700;
       padding: 4px 9px;
       border-radius: 7px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
     .pill-traffic {
-      background: rgba(7, 10, 17, 0.85);
+      background: rgba(6, 9, 16, 0.86);
       backdrop-filter: blur(8px);
       color: var(--amber);
       font-family: 'JetBrains Mono', monospace;
@@ -707,7 +721,41 @@
     }
     .read-cta:hover {
       background: var(--cyan);
-      color: #070a11;
+      color: #060910;
+    }
+
+    /* 分頁載入更多按鈕 */
+    .load-more-wrap {
+      text-align: center;
+      margin-top: 28px;
+    }
+    .load-more-btn {
+      background: var(--bg-surface);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: var(--cyan);
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 12px 28px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .load-more-btn:hover {
+      background: var(--cyan);
+      color: #060910;
+    }
+
+    /* 骨架屏動畫 */
+    .skeleton {
+      background: linear-gradient(90deg, #121b2d 25%, #1c2942 50%, #121b2d 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 16px;
+      height: 310px;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
 
     #toast {
@@ -746,10 +794,10 @@
 
   <!-- 1. 全球即時熱搜跑馬燈 -->
   <div class="ticker-bar">
-    <div class="ticker-label"><span class="pulse-dot"></span> <span id="t-ticker">LIVE 飆升榜</span></div>
+    <div class="ticker-label"><span class="pulse-dot"></span> <span id="t-ticker">LIVE SURGING</span></div>
     <div class="ticker-track-wrap">
       <div class="ticker-track" id="ticker-track">
-        <span class="ticker-item">Syncing Global Google Trends...</span>
+        <span class="ticker-item">Syncing 54 Countries Google Trends Radar...</span>
       </div>
     </div>
   </div>
@@ -761,18 +809,20 @@
         <div class="brand-icon">⚡</div>
         <div>
           <div class="brand-title">SIGMA <span>PULSE</span></div>
-          <div class="brand-sub">GLOBAL VIRAL INTELLIGENCE</div>
+          <div class="brand-sub" id="brand-sub">54 COUNTRIES VIRAL RADAR</div>
         </div>
       </a>
 
       <div class="nav-tools">
         <div class="search-box">
-          <input type="text" id="search-input" placeholder="搜尋關鍵字、話題..." oninput="handleSearch()" />
+          <input type="text" id="search-input" placeholder="Search 54 countries..." oninput="handleSearch()" />
         </div>
         <div class="lang-switch">
           <button class="lang-btn" data-lang="zh-TW" onclick="setLang('zh-TW')">繁中</button>
           <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
           <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">日本語</button>
+          <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+          <button class="lang-btn" data-lang="pt" onclick="setLang('pt')">PT</button>
         </div>
         <div class="live-status" id="update-badge">SYNCING...</div>
       </div>
@@ -782,25 +832,33 @@
   <main class="container">
     <!-- 點擊追蹤面板 (?stats=1) -->
     <div id="stats-panel">
-      <h3>📊 SIGMA PULSE 即時點擊漏斗監測</h3>
+      <h3>📊 SIGMA PULSE 54國流量漏斗監測</h3>
       <div id="stats-content">尚無點擊紀錄</div>
       <button class="stats-btn" onclick="resetStats()">重置本地數據</button>
     </div>
 
-    <!-- 3. 地區切換與熱度排序列 -->
+    <!-- 3. 雙層地理控制列 -->
     <div class="controls-bar">
-      <div class="region-tabs" id="region-tabs">
-        <button class="tab-btn" data-code="ALL" onclick="setRegion('ALL')">🌐 <span id="t-tab-ALL">全球總覽</span> <span class="tab-count" id="cnt-ALL">0</span></button>
-        <button class="tab-btn" data-code="US" onclick="setRegion('US')">🇺🇸 <span id="t-tab-US">美國</span> <span class="tab-count" id="cnt-US">0</span></button>
-        <button class="tab-btn" data-code="GB" onclick="setRegion('GB')">🇬🇧 <span id="t-tab-GB">英國</span> <span class="tab-count" id="cnt-GB">0</span></button>
-        <button class="tab-btn" data-code="TW" onclick="setRegion('TW')">🇹🇼 <span id="t-tab-TW">台灣</span> <span class="tab-count" id="cnt-TW">0</span></button>
-        <button class="tab-btn" data-code="JP" onclick="setRegion('JP')">🇯🇵 <span id="t-tab-JP">日本</span> <span class="tab-count" id="cnt-JP">0</span></button>
+      <div class="group-tabs" id="group-tabs">
+        <button class="tab-btn local-highlight" id="btn-local-country" style="display:none;" onclick="selectLocalCountry()"></button>
+        <button class="tab-btn active" data-group="ALL" onclick="setGroup('ALL')">🌐 <span id="t-grp-ALL">Global</span></button>
+        <button class="tab-btn" data-group="TIER1" onclick="setGroup('TIER1')">💎 <span id="t-grp-TIER1">Tier-1 Markets</span></button>
+        <button class="tab-btn" data-group="ASIA" onclick="setGroup('ASIA')">🌏 <span id="t-grp-ASIA">Asia-Pacific</span></button>
+        <button class="tab-btn" data-group="EUROPE" onclick="setGroup('EUROPE')">🇪🇺 <span id="t-grp-EUROPE">Europe</span></button>
+        <button class="tab-btn" data-group="AMERICAS" onclick="setGroup('AMERICAS')">🌎 <span id="t-grp-AMERICAS">Americas</span></button>
+        <button class="tab-btn" data-group="MEA" onclick="setGroup('MEA')">🌍 <span id="t-grp-MEA">MEA</span></button>
       </div>
 
-      <select class="sort-select" id="sort-select" onchange="renderAll()">
-        <option value="traffic" id="t-sort-traffic">🔥 依搜尋熱度排序 (最高優先)</option>
-        <option value="default" id="t-sort-default">⚡ 依最新抓取代排序</option>
-      </select>
+      <div class="dropdown-group">
+        <select class="control-select" id="country-select" onchange="setCountry(this.value)">
+          <option value="ALL">🏳️ All 54 Countries</option>
+        </select>
+
+        <select class="control-select" id="sort-select" onchange="resetPageAndRender()">
+          <option value="traffic" id="t-sort-traffic">🔥 Highest Search Volume</option>
+          <option value="default" id="t-sort-default">⚡ By Country Population</option>
+        </select>
+      </div>
     </div>
 
     <!-- 4. 雜誌級 Hero Bento 焦點頭條區 -->
@@ -814,36 +872,56 @@
 
     <!-- 6. 完整情報網格 -->
     <div class="section-header">
-      <h2 class="section-title" id="t-section-title">📡 即時趨勢雷達流</h2>
+      <h2 class="section-title" id="t-section-title">📡 Global Real-Time Radar</h2>
       <span id="result-count" style="font-size:0.8rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;"></span>
     </div>
-    <section class="grid" id="trends-grid"></section>
+
+    <section class="grid" id="trends-grid">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </section>
+
+    <div class="load-more-wrap" id="load-more-wrap" style="display:none;">
+      <button class="load-more-btn" id="load-more-btn" onclick="loadMore()">Load More Trends</button>
+    </div>
   </main>
 
   <div id="toast">✅ Copied!</div>
 
   <footer>
-    SIGMA PULSE · Automated Global Search Radar · Updated Every 2 Hours
+    SIGMA PULSE · 54-Country Automated Search Intelligence · Updated Every 2 Hours
   </footer>
 
   <script>
     const SMARTLINK_URL = "https://asiafilm.org/4/c9fd036ccb50a1833d362caf25bf03ec";
+    const PAGE_SIZE = 24;
+
     let allItems = [];
-    let currentLang = 'zh-TW';
-    let currentRegion = 'ALL';
+    let countriesMeta = [];
+    let currentLang = 'en';
+    let currentGroup = 'ALL';
+    let currentCountry = 'ALL';
+    let detectedCountryCode = null;
     let searchQuery = '';
+    let visibleLimit = PAGE_SIZE;
 
     const I18N = {
       'zh-TW': {
-        ticker: 'LIVE 飆升榜',
-        searchPlaceholder: '搜尋關鍵字、話題、人物...',
-        tabs: { ALL: '全球總覽', US: '美國', GB: '英國', TW: '台灣', JP: '日本' },
-        regionLabels: { US: '🇺🇸 美國熱搜', GB: '🇬🇧 英國熱搜', TW: '🇹🇼 台灣熱搜', JP: '🇯🇵 日本熱搜' },
+        ticker: 'LIVE 全球飆升榜',
+        searchPlaceholder: '搜尋 54 國關鍵字、人物...',
+        groups: { ALL: '全球總覽', TIER1: '歐美高熱度區', ASIA: '亞太區', EUROPE: '歐洲區', AMERICAS: '美洲區', MEA: '中東與非洲' },
+        allCountriesOpt: (n) => `🏳️ 全部 ${n} 個國家/地區`,
+        localBtn: (flag, name) => `📍 本地熱搜：${flag} ${name}`,
         sortTraffic: '🔥 依搜尋熱度排序 (最高優先)',
-        sortDefault: '⚡ 依最新抓取代排序',
-        sectionTitle: '📡 即時趨勢雷達流',
-        showing: (n) => `顯示 ${n} 筆即時話題`,
-        empty: '找不到符合條件的熱搜話題，請嘗試其他關鍵字。',
+        sortDefault: '⚡ 依國家人口規模排序',
+        sectionTitle: '📡 全球即時趨勢雷達流',
+        showing: (shown, total) => `顯示 ${shown} / ${total} 筆即時話題`,
+        loadMore: (rem) => `載入更多趨勢話題 (還有 ${rem} 筆) ▾`,
+        empty: '找不到符合條件的熱搜話題，請切換國家或關鍵字。',
         top1Badge: '👑 當前熱度 #1',
         readFull: '閱讀完整事件始末 ↗',
         readShort: '查看懶人包 ↗',
@@ -858,14 +936,16 @@
         shareTemplate: (kw, hk, tr, url) => `🔥 剛剛衝上熱搜（${tr}）：${kw}\n${hk}\n👇 完整爆紅原因懶人包：\n${url}`
       },
       'en': {
-        ticker: 'LIVE SURGING',
-        searchPlaceholder: 'Search keywords, topics, people...',
-        tabs: { ALL: 'Global', US: 'US', GB: 'UK', TW: 'Taiwan', JP: 'Japan' },
-        regionLabels: { US: '🇺🇸 US Trends', GB: '🇬🇧 UK Trends', TW: '🇹🇼 Taiwan Trends', JP: '🇯🇵 Japan Trends' },
-        sortTraffic: '🔥 Sort by Search Volume (Highest)',
-        sortDefault: '⚡ Sort by Latest Feed',
+        ticker: 'LIVE GLOBAL SURGE',
+        searchPlaceholder: 'Search 54 countries...',
+        groups: { ALL: 'Global', TIER1: 'Tier-1 Markets', ASIA: 'Asia-Pacific', EUROPE: 'Europe', AMERICAS: 'Americas', MEA: 'MEA' },
+        allCountriesOpt: (n) => `🏳️ All ${n} Countries`,
+        localBtn: (flag, name) => `📍 Local: ${flag} ${name}`,
+        sortTraffic: '🔥 Highest Search Volume',
+        sortDefault: '⚡ By Country Population',
         sectionTitle: '📡 Real-Time Viral Radar',
-        showing: (n) => `Showing ${n} live trends`,
+        showing: (shown, total) => `Showing ${shown} of ${total} live trends`,
+        loadMore: (rem) => `Load More Viral Trends (${rem} remaining) ▾`,
         empty: 'No trending topics found matching your filter.',
         top1Badge: '👑 #1 TRENDING NOW',
         readFull: 'Read Full Story ↗',
@@ -881,14 +961,16 @@
         shareTemplate: (kw, hk, tr, url) => `🔥 Trending right now (${tr}): ${kw}\n${hk}\n👇 Full breakdown & context:\n${url}`
       },
       'ja': {
-        ticker: 'LIVE 急上昇',
-        searchPlaceholder: 'キーワード・話題を検索...',
-        tabs: { ALL: '世界総合', US: 'アメリカ', GB: 'イギリス', TW: '台湾', JP: '日本' },
-        regionLabels: { US: '🇺🇸 米国トレンド', GB: '🇬🇧 英国トレンド', TW: '🇹🇼 台湾トレンド', JP: '🇯🇵 日本トレンド' },
+        ticker: 'LIVE 世界急上昇',
+        searchPlaceholder: '54ヶ国のトレンドを検索...',
+        groups: { ALL: '世界総合', TIER1: '主要先進国', ASIA: 'アジア太平洋', EUROPE: 'ヨーロッパ', AMERICAS: 'アメリカ大陸', MEA: '中東・アフリカ' },
+        allCountriesOpt: (n) => `🏳️ 全 ${n} ヶ国・地域`,
+        localBtn: (flag, name) => `📍 地域トレンド: ${flag} ${name}`,
         sortTraffic: '🔥 検索ボリューム順 (高い順)',
-        sortDefault: '⚡ 最新取得順',
+        sortDefault: '⚡ 人口規模順',
         sectionTitle: '📡 リアルタイム急上昇レーダー',
-        showing: (n) => `${n} 件の急上昇ワードを表示中`,
+        showing: (shown, total) => `${total} 件中 ${shown} 件を表示中`,
+        loadMore: (rem) => `さらに表示する (残り ${rem} 件) ▾`,
         empty: '該当するトレンドが見つかりませんでした。',
         top1Badge: '👑 現在トレンド 1位',
         readFull: '詳しい経緯を見る ↗',
@@ -902,30 +984,155 @@
         smartCta: '今すぐ詳細まとめを見る ➔',
         toast: '✅ 投稿文とURLをコピーしました！XやSNSに貼り付けて共有できます。',
         shareTemplate: (kw, hk, tr, url) => `🔥 急上昇トレンド（${tr}）：${kw}\n${hk}\n👇 詳しい理由とまとめはこちら：\n${url}`
+      },
+      'es': {
+        ticker: 'EN VIVO · TENDENCIAS',
+        searchPlaceholder: 'Buscar en 54 países...',
+        groups: { ALL: 'Global', TIER1: 'Mercados Top', ASIA: 'Asia-Pacífico', EUROPE: 'Europa', AMERICAS: 'Américas', MEA: 'Oriente Medio/África' },
+        allCountriesOpt: (n) => `🏳️ Todos los ${n} países`,
+        localBtn: (flag, name) => `📍 Local: ${flag} ${name}`,
+        sortTraffic: '🔥 Mayor Volumen de Búsqueda',
+        sortDefault: '⚡ Por Población',
+        sectionTitle: '📡 Radar Viral en Tiempo Real',
+        showing: (shown, total) => `Mostrando ${shown} de ${total} tendencias`,
+        loadMore: (rem) => `Cargar más tendencias (${rem} restantes) ▾`,
+        empty: 'No se encontraron tendencias con ese filtro.',
+        top1Badge: '👑 #1 TENDENCIA AHORA',
+        readFull: 'Leer Historia Completa ↗',
+        readShort: 'Ver Más ↗',
+        shareFull: '📋 Copiar Post Viral',
+        shareShort: '📋 Compartir',
+        sourcePrefix: 'Fuente: ',
+        smartTag: '⚡ DETECTOR IA · +1M BÚSQUEDAS',
+        smartTitle: 'La Historia Viral #1 que Explota Ahora Mismo Antes que las Noticias',
+        smartDesc: 'Las búsquedas subieron +480% en los últimos 60 minutos. Toca para ver el resumen completo.',
+        smartCta: 'Desbloquear Resumen Completo ➔',
+        toast: '✅ ¡Texto y enlace copiados! Listo para pegar en X / Threads.',
+        shareTemplate: (kw, hk, tr, url) => `🔥 Tendencia ahora (${tr}): ${kw}\n${hk}\n👇 Resumen completo aquí:\n${url}`
+      },
+      'pt': {
+        ticker: 'AO VIVO · EM ALTA',
+        searchPlaceholder: 'Buscar em 54 países...',
+        groups: { ALL: 'Global', TIER1: 'Mercados Top', ASIA: 'Ásia-Pacífico', EUROPE: 'Europa', AMERICAS: 'Américas', MEA: 'Oriente Médio/África' },
+        allCountriesOpt: (n) => `🏳️ Todos os ${n} países`,
+        localBtn: (flag, name) => `📍 Local: ${flag} ${name}`,
+        sortTraffic: '🔥 Maior Volume de Busca',
+        sortDefault: '⚡ Por População',
+        sectionTitle: '📡 Radar Viral em Tempo Real',
+        showing: (shown, total) => `Mostrando ${shown} de ${total} tendências`,
+        loadMore: (rem) => `Carregar mais tendências (${rem} restantes) ▾`,
+        empty: 'Nenhuma tendência encontrada para este filtro.',
+        top1Badge: '👑 #1 EM ALTA AGORA',
+        readFull: 'Ler Matéria Completa ↗',
+        readShort: 'Ver Mais ↗',
+        shareFull: '📋 Copiar Post Viral',
+        shareShort: '📋 Compartilhar',
+        sourcePrefix: 'Fonte: ',
+        smartTag: '⚡ DETECTOR IA · +1M BUSCAS',
+        smartTitle: 'A História Viral #1 Bombando Agora Antes dos Grandes Portais',
+        smartDesc: 'As buscas dispararam +480% nos últimos 60 minutos. Toque para ver o resumo completo.',
+        smartCta: 'Desbloquear Resumo Completo ➔',
+        toast: '✅ Texto e link copiados! Pronto para colar no X / Threads.',
+        shareTemplate: (kw, hk, tr, url) => `🔥 Em alta agora (${tr}): ${kw}\n${hk}\n👇 Resumo completo aqui:\n${url}`
       }
     };
 
-    // 自動偵測訪客所在地與語系
-    function detectUserLocation() {
+    // 54 國時區對照表，自動偵測訪客所屬國家與語系
+    const TZ_COUNTRY_MAP = {
+      'kolkata': 'IN', 'calcutta': 'IN',
+      'new_york': 'US', 'chicago': 'US', 'denver': 'US', 'los_angeles': 'US', 'phoenix': 'US', 'detroit': 'US',
+      'jakarta': 'ID', 'makassar': 'ID',
+      'sao_paulo': 'BR', 'fortaleza': 'BR', 'manaus': 'BR', 'recife': 'BR',
+      'moscow': 'RU',
+      'tokyo': 'JP',
+      'lagos': 'NG',
+      'mexico_city': 'MX', 'monterrey': 'MX', 'tijuana': 'MX',
+      'manila': 'PH',
+      'ho_chi_minh': 'VN', 'saigon': 'VN',
+      'cairo': 'EG',
+      'berlin': 'DE',
+      'istanbul': 'TR',
+      'london': 'GB',
+      'bangkok': 'TH',
+      'paris': 'FR',
+      'rome': 'IT',
+      'seoul': 'KR',
+      'madrid': 'ES',
+      'johannesburg': 'ZA',
+      'bogota': 'CO',
+      'buenos_aires': 'AR',
+      'warsaw': 'PL',
+      'toronto': 'CA', 'vancouver': 'CA', 'montreal': 'CA',
+      'riyadh': 'SA',
+      'kuala_lumpur': 'MY',
+      'kiev': 'UA', 'kyiv': 'UA',
+      'lima': 'PE',
+      'sydney': 'AU', 'melbourne': 'AU', 'brisbane': 'AU', 'perth': 'AU',
+      'taipei': 'TW',
+      'nairobi': 'KE',
+      'santiago': 'CL',
+      'bucharest': 'RO',
+      'amsterdam': 'NL',
+      'brussels': 'BE',
+      'stockholm': 'SE',
+      'prague': 'CZ',
+      'dubai': 'AE',
+      'athens': 'GR',
+      'lisbon': 'PT',
+      'budapest': 'HU',
+      'vienna': 'AT',
+      'zurich': 'CH',
+      'jerusalem': 'IL', 'tel_aviv': 'IL',
+      'hong_kong': 'HK',
+      'copenhagen': 'DK',
+      'singapore': 'SG',
+      'helsinki': 'FI',
+      'oslo': 'NO',
+      'dublin': 'IE',
+      'auckland': 'NZ',
+      'bratislava': 'SK',
+      'sofia': 'BG',
+      'zagreb': 'HR'
+    };
+
+    function detectVisitorContext() {
       const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase();
       const lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
 
-      if (tz.includes('taipei') || tz.includes('hong_kong') || lang.includes('zh-tw') || lang.includes('zh-hk') || lang.includes('hant')) {
-        return { lang: 'zh-TW', region: 'TW' };
+      let country = null;
+      for (const [city, code] of Object.entries(TZ_COUNTRY_MAP)) {
+        if (tz.includes(city)) {
+          country = code;
+          break;
+        }
       }
-      if (tz.includes('tokyo') || lang.startsWith('ja')) {
-        return { lang: 'ja', region: 'JP' };
+
+      let uiLang = 'en';
+      if (country === 'TW' || country === 'HK' || lang.includes('zh-tw') || lang.includes('zh-hk') || lang.includes('hant') || lang.startsWith('zh')) {
+        uiLang = 'zh-TW';
+      } else if (country === 'JP' || lang.startsWith('ja')) {
+        uiLang = 'ja';
+      } else if (country === 'BR' || country === 'PT' || lang.startsWith('pt')) {
+        uiLang = 'pt';
+      } else if (['MX', 'ES', 'CO', 'AR', 'PE', 'CL'].includes(country) || lang.startsWith('es')) {
+        uiLang = 'es';
       }
-      if (tz.includes('london') || lang === 'en-gb') {
-        return { lang: 'en', region: 'GB' };
-      }
-      if (tz.startsWith('america/') || lang === 'en-us' || lang === 'en-ca' || lang === 'en-au') {
-        return { lang: 'en', region: 'US' };
-      }
-      if (lang.startsWith('zh')) {
-        return { lang: 'zh-TW', region: 'ALL' };
-      }
-      return { lang: 'en', region: 'ALL' };
+
+      return { uiLang, country };
+    }
+
+    function getCountryName(cObj) {
+      if (!cObj) return '';
+      if (currentLang === 'zh-TW') return cObj.zh || cObj.name_zh || cObj.en;
+      if (currentLang === 'ja') return cObj.ja || cObj.name_ja || cObj.en;
+      return cObj.en || cObj.name_en;
+    }
+
+    function getItemRegionDisplay(item) {
+      const name = currentLang === 'zh-TW' ? item.name_zh
+                 : currentLang === 'ja' ? item.name_ja
+                 : item.name_en;
+      return `${item.flag} ${name}`;
     }
 
     function applyLanguageUI() {
@@ -933,9 +1140,9 @@
       document.documentElement.lang = currentLang;
       document.getElementById('t-ticker').innerText = t.ticker;
       document.getElementById('search-input').placeholder = t.searchPlaceholder;
-      ['ALL', 'US', 'GB', 'TW', 'JP'].forEach(code => {
-        const el = document.getElementById('t-tab-' + code);
-        if (el) el.innerText = t.tabs[code];
+      ['ALL', 'TIER1', 'ASIA', 'EUROPE', 'AMERICAS', 'MEA'].forEach(grp => {
+        const el = document.getElementById('t-grp-' + grp);
+        if (el) el.innerText = t.groups[grp];
       });
       document.getElementById('t-sort-traffic').innerText = t.sortTraffic;
       document.getElementById('t-sort-default').innerText = t.sortDefault;
@@ -944,6 +1151,39 @@
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === currentLang);
       });
+
+      populateCountryDropdown();
+      updateLocalButton();
+    }
+
+    function updateLocalButton() {
+      const btn = document.getElementById('btn-local-country');
+      if (!detectedCountryCode || !countriesMeta.length) {
+        btn.style.display = 'none';
+        return;
+      }
+      const meta = countriesMeta.find(c => c.code === detectedCountryCode);
+      if (!meta) {
+        btn.style.display = 'none';
+        return;
+      }
+      const t = I18N[currentLang] || I18N['en'];
+      btn.innerText = t.localBtn(meta.flag, getCountryName(meta));
+      btn.style.display = 'inline-flex';
+      btn.classList.toggle('active', currentCountry === detectedCountryCode);
+    }
+
+    function populateCountryDropdown() {
+      const select = document.getElementById('country-select');
+      const t = I18N[currentLang] || I18N['en'];
+      const prevVal = currentCountry;
+
+      let optionsHtml = `<option value="ALL">${t.allCountriesOpt(countriesMeta.length || 54)}</option>`;
+      countriesMeta.forEach(c => {
+        optionsHtml += `<option value="${c.code}">${c.flag} ${getCountryName(c)} (${c.count})</option>`;
+      });
+      select.innerHTML = optionsHtml;
+      select.value = prevVal;
     }
 
     function setLang(lang) {
@@ -953,11 +1193,43 @@
       renderAll();
     }
 
-    function setRegion(code) {
-      currentRegion = code;
-      document.querySelectorAll('.tab-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.code === code);
+    function setGroup(grp) {
+      currentGroup = grp;
+      currentCountry = 'ALL';
+      document.getElementById('country-select').value = 'ALL';
+      document.querySelectorAll('#group-tabs .tab-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.group === grp);
       });
+      updateLocalButton();
+      resetPageAndRender();
+    }
+
+    function setCountry(code) {
+      currentCountry = code;
+      if (code !== 'ALL') {
+        currentGroup = 'ALL';
+        document.querySelectorAll('#group-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+      } else {
+        setGroup('ALL');
+        return;
+      }
+      updateLocalButton();
+      resetPageAndRender();
+    }
+
+    function selectLocalCountry() {
+      if (!detectedCountryCode) return;
+      document.getElementById('country-select').value = detectedCountryCode;
+      setCountry(detectedCountryCode);
+    }
+
+    function resetPageAndRender() {
+      visibleLimit = PAGE_SIZE;
+      renderAll();
+    }
+
+    function loadMore() {
+      visibleLimit += PAGE_SIZE;
       renderAll();
     }
 
@@ -977,11 +1249,6 @@
       if (clean.includes('M')) return parseFloat(clean) * 1000000;
       if (clean.includes('K')) return parseFloat(clean) * 1000;
       return parseFloat(clean) || 0;
-    }
-
-    function getRegionDisplay(item) {
-      const t = I18N[currentLang] || I18N['en'];
-      return t.regionLabels[item.code] || item.region;
     }
 
     function logClick(label) {
@@ -1025,23 +1292,15 @@
 
     function handleSearch() {
       searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
-      renderAll();
-    }
-
-    function updateCounts() {
-      document.getElementById('cnt-ALL').innerText = allItems.length;
-      ['US', 'GB', 'TW', 'JP'].forEach(code => {
-        const el = document.getElementById('cnt-' + code);
-        if (el) el.innerText = allItems.filter(i => i.code === code).length;
-      });
+      resetPageAndRender();
     }
 
     function renderTicker() {
-      const sorted = [...allItems].sort((a, b) => parseTraffic(b.traffic) - parseTraffic(a.traffic)).slice(0, 12);
+      const sorted = [...allItems].sort((a, b) => parseTraffic(b.traffic) - parseTraffic(a.traffic)).slice(0, 15);
       if (!sorted.length) return;
       const html = sorted.map(item => `
-        <a class="ticker-item" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('跑馬燈-${esc(item.keyword)}')">
-          <span>${esc(getRegionDisplay(item))}</span>
+        <a class="ticker-item" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('跑馬燈-${esc(item.code)}')">
+          <span>${esc(getItemRegionDisplay(item))}</span>
           <strong>${esc(item.keyword)}</strong>
           <span class="ticker-hot">${esc(item.traffic)}</span>
         </a>
@@ -1070,26 +1329,39 @@
     function renderAll() {
       const t = I18N[currentLang] || I18N['en'];
       const sortMode = document.getElementById('sort-select').value;
+
       let filtered = allItems.filter(item => {
-        const matchRegion = currentRegion === 'ALL' || item.code === currentRegion;
-        const matchSearch = !searchQuery ||
-          (item.keyword && item.keyword.toLowerCase().includes(searchQuery)) ||
-          (item.hook && item.hook.toLowerCase().includes(searchQuery));
-        return matchRegion && matchSearch;
+        if (currentCountry !== 'ALL') {
+          if (item.code !== currentCountry) return false;
+        } else if (currentGroup === 'TIER1') {
+          if (!item.tier1) return false;
+        } else if (currentGroup !== 'ALL') {
+          if (item.group !== currentGroup) return false;
+        }
+
+        if (searchQuery) {
+          const matchKw = item.keyword && item.keyword.toLowerCase().includes(searchQuery);
+          const matchHk = item.hook && item.hook.toLowerCase().includes(searchQuery);
+          const matchCountry = (item.name_en && item.name_en.toLowerCase().includes(searchQuery)) ||
+                               (item.name_zh && item.name_zh.toLowerCase().includes(searchQuery));
+          if (!matchKw && !matchHk && !matchCountry) return false;
+        }
+        return true;
       });
 
       if (sortMode === 'traffic') {
         filtered.sort((a, b) => parseTraffic(b.traffic) - parseTraffic(a.traffic));
       }
 
-      document.getElementById('result-count').innerText = t.showing(filtered.length);
-
       const heroEl = document.getElementById('hero-bento');
       const gridEl = document.getElementById('trends-grid');
+      const loadWrap = document.getElementById('load-more-wrap');
 
       if (filtered.length === 0) {
         heroEl.innerHTML = '';
         gridEl.innerHTML = `<p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:40px 0;">${t.empty}</p>`;
+        document.getElementById('result-count').innerText = t.showing(0, 0);
+        loadWrap.style.display = 'none';
         return;
       }
 
@@ -1100,7 +1372,7 @@
         <article class="side-card">
           <div>
             <div class="hero-badges" style="margin-bottom:8px;">
-              <span class="badge-region">${esc(getRegionDisplay(top2))}</span>
+              <span class="badge-region">${esc(getItemRegionDisplay(top2))}</span>
               <span class="badge-traffic">${esc(top2.traffic)}</span>
             </div>
             <h3 style="font-size:1.15rem;font-weight:800;margin-bottom:6px;color:#fff;">${esc(top2.keyword)}</h3>
@@ -1110,7 +1382,7 @@
             <span class="source-name">${t.sourcePrefix}${esc(top2.source)}</span>
             <div class="card-btns">
               <button class="mini-share" onclick="copyViralPost('${esc(top2.keyword)}','${esc(top2.hook)}','${esc(top2.traffic)}')">${t.shareShort}</button>
-              <a class="read-cta" href="${esc(top2.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('Hero2-${esc(top2.keyword)}')">${t.readShort}</a>
+              <a class="read-cta" href="${esc(top2.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('Hero2-${esc(top2.code)}')">${t.readShort}</a>
             </div>
           </div>
         </article>
@@ -1123,13 +1395,13 @@
           <div class="hero-content">
             <div class="hero-badges">
               <span class="badge-top1">${t.top1Badge}</span>
-              <span class="badge-region">${esc(getRegionDisplay(top1))}</span>
+              <span class="badge-region">${esc(getItemRegionDisplay(top1))}</span>
               <span class="badge-traffic">${esc(top1.traffic)}</span>
             </div>
             <h2 class="hero-title">${esc(top1.keyword)}</h2>
             <p class="hero-hook">${esc(top1.hook)}</p>
             <div class="hero-actions">
-              <a class="btn-primary" href="${esc(top1.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('Hero1-${esc(top1.keyword)}')">
+              <a class="btn-primary" href="${esc(top1.url)}" target="_blank" rel="noopener noreferrer" onclick="logClick('Hero1-${esc(top1.code)}')">
                 ${t.readFull}
               </a>
               <button class="btn-share" onclick="copyViralPost('${esc(top1.keyword)}','${esc(top1.hook)}','${esc(top1.traffic)}')">
@@ -1145,15 +1417,19 @@
       `;
 
       const rest = filtered.slice(2);
-      gridEl.innerHTML = rest.map(item => `
+      const visibleItems = rest.slice(0, visibleLimit);
+      const totalShown = Math.min(filtered.length, 2 + visibleItems.length);
+      document.getElementById('result-count').innerText = t.showing(totalShown, filtered.length);
+
+      gridEl.innerHTML = visibleItems.map(item => `
         <article class="card">
           <div class="card-media">
             ${item.picture
-              ? `<img src="${esc(item.picture)}" alt="${esc(item.keyword)}" loading="lazy" onerror="this.outerHTML='<div class=\\'fallback-cover\\'><span>TRENDING INTEL</span><div>${esc(item.keyword)}</div></div>'">`
-              : `<div class="fallback-cover"><span>TRENDING INTEL</span><div>${esc(item.keyword)}</div></div>`
+              ? `<img src="${esc(item.picture)}" alt="${esc(item.keyword)}" loading="lazy" onerror="this.outerHTML='<div class=\\'fallback-cover\\'><span>${esc(item.code)} TRENDING</span><div>${esc(item.keyword)}</div></div>'">`
+              : `<div class="fallback-cover"><span>${esc(item.code)} TRENDING</span><div>${esc(item.keyword)}</div></div>`
             }
             <div class="media-badges">
-              <span class="pill-region">${esc(getRegionDisplay(item))}</span>
+              <span class="pill-region">${esc(getItemRegionDisplay(item))}</span>
               <span class="pill-traffic">${esc(item.traffic)}</span>
             </div>
           </div>
@@ -1172,12 +1448,20 @@
           </div>
         </article>
       `).join('');
+
+      const remaining = rest.length - visibleItems.length;
+      if (remaining > 0) {
+        loadWrap.style.display = 'block';
+        document.getElementById('load-more-btn').innerText = t.loadMore(remaining);
+      } else {
+        loadWrap.style.display = 'none';
+      }
     }
 
     async function init() {
-      const detected = detectUserLocation();
-      currentLang = detected.lang;
-      currentRegion = detected.region;
+      const ctx = detectVisitorContext();
+      currentLang = ctx.uiLang;
+      detectedCountryCode = ctx.country;
       applyLanguageUI();
       renderStats();
 
@@ -1185,10 +1469,21 @@
         const res = await fetch('trends.json?t=' + Date.now());
         const data = await res.json();
         allItems = data.items || [];
+        countriesMeta = data.countries || [];
+        const cCount = data.countries_count || countriesMeta.length || 54;
+        document.getElementById('brand-sub').innerText = `${cCount} COUNTRIES VIRAL RADAR`;
         document.getElementById('update-badge').innerText = `LIVE · ${data.updated_at.slice(5)}`;
-        updateCounts();
+
+        populateCountryDropdown();
+        updateLocalButton();
         renderTicker();
-        setRegion(currentRegion);
+
+        // 若訪客所在國家在 54 國名單內，預設先顯示該國熱搜；同時保留一鍵切回全球總覽
+        if (detectedCountryCode && countriesMeta.some(c => c.code === detectedCountryCode)) {
+          selectLocalCountry();
+        } else {
+          renderAll();
+        }
       } catch (e) {
         document.getElementById('update-badge').innerText = 'OFFLINE';
       }
