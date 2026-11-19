@@ -3,348 +3,517 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GLOBAL TRENDS RADAR | 全球即時熱搜雷達</title>
+  <title>SIGMA PULSE | 全球即時熱搜與爆紅情報雷達</title>
+  <meta name="description" content="24小時全自動追蹤美國、英國、台灣、日本 Google 破百萬即時熱搜話題與懶人包。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f3f4f6;
-      --card: #ffffff;
-      --text: #111827;
-      --muted: #6b7280;
-      --accent: #ef4444;
-      --accent-dark: #dc2626;
-      --border: #e5e7eb;
+      --bg-base: #070a11;
+      --bg-surface: #0f1623;
+      --bg-card: #131c2e;
+      --bg-card-hover: #182338;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(56, 189, 248, 0.4);
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --text-muted: #64748b;
+      --crimson: #ff2e4c;
+      --crimson-glow: rgba(255, 46, 76, 0.35);
+      --cyan: #38bdf8;
+      --amber: #f59e0b;
+      --emerald: #10b981;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
+      font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-base);
+      background-image:
+        radial-gradient(circle at 15% 0%, rgba(255, 46, 76, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 10%, rgba(56, 189, 248, 0.08) 0%, transparent 40%);
+      color: var(--text-main);
+      line-height: 1.55;
+      min-height: 100vh;
     }
-    header {
-      background: #111827;
-      color: #fff;
-      padding: 20px 16px;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 1.45rem;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
-    }
-    header p {
-      font-size: 0.85rem;
-      color: #9ca3af;
-    }
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 16px;
-    }
-    /* 後台統計面板 (?stats=1 開啟) */
-    #stats-panel {
-      display: none;
-      background: #1f2937;
-      color: #f9fafb;
-      padding: 14px 16px;
-      border-radius: 10px;
-      margin-bottom: 16px;
-      font-size: 0.88rem;
-    }
-    #stats-panel h3 {
-      margin-bottom: 8px;
-      color: #34d399;
-      font-size: 1rem;
-    }
-    .stats-btn {
-      margin-top: 8px;
-      background: #374151;
-      color: #fff;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 6px;
-      cursor: pointer;
+
+    /* 1. 頂部即時快訊跑馬燈 */
+    .ticker-bar {
+      background: #04060b;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      height: 36px;
+      overflow: hidden;
       font-size: 0.8rem;
     }
-    /* 置頂 Smartlink 直連高點擊按鈕 */
-    .viral-banner {
-      display: block;
-      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    .ticker-label {
+      background: var(--crimson);
       color: #fff;
-      text-align: center;
+      font-weight: 800;
+      padding: 0 14px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      letter-spacing: 0.5px;
+      z-index: 2;
+      box-shadow: 4px 0 12px rgba(0,0,0,0.5);
+    }
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: #fff;
+      border-radius: 50%;
+      animation: pulse 1.4s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.8); }
+    }
+    .ticker-track-wrap {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+    .ticker-track {
+      display: inline-flex;
+      gap: 32px;
+      white-space: nowrap;
+      padding-left: 20px;
+      animation: marquee 45s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      color: var(--text-sub);
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+    }
+    .ticker-item:hover { color: #fff; }
+    .ticker-item strong { color: var(--text-main); }
+    .ticker-hot {
+      color: var(--crimson);
+      font-family: 'JetBrains Mono', monospace;
       font-weight: 700;
-      font-size: 1rem;
-      padding: 14px 18px;
-      border-radius: 12px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.28);
-      transition: transform 0.15s ease;
+      font-size: 0.75rem;
     }
-    .viral-banner:hover {
-      transform: translateY(-2px);
+
+    /* 2. 玻璃擬態導覽列 */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7, 10, 17, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
     }
-    /* 地區篩選列 */
-    .filters {
+    .nav-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--crimson), #ff6b35);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+      box-shadow: 0 0 18px var(--crimson-glow);
+    }
+    .brand-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+    }
+    .brand-title span { color: var(--crimson); }
+    .brand-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .nav-tools {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      max-width: 520px;
+      justify-content: flex-end;
+    }
+    .search-box {
+      position: relative;
+      flex: 1;
+      max-width: 300px;
+    }
+    .search-box input {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 8px 14px 8px 34px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-box input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+    .search-box::before {
+      content: "🔍";
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+      opacity: 0.6;
+    }
+    .live-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--emerald);
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 6px 11px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* 主容器 */
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* 後台統計面板 (?stats=1) */
+    #stats-panel {
+      display: none;
+      background: #0d1320;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+    #stats-panel h3 { color: var(--emerald); margin-bottom: 10px; }
+    .stats-btn {
+      margin-top: 10px;
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* 3. 篩選與排序控制列 */
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .region-tabs {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 14px;
+      padding-bottom: 4px;
     }
-    .filter-btn {
-      background: var(--card);
+    .tab-btn {
+      background: var(--bg-surface);
       border: 1px solid var(--border);
-      color: var(--text);
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 0.88rem;
+      color: var(--text-sub);
+      padding: 8px 15px;
+      border-radius: 10px;
+      font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.18s ease;
     }
-    .filter-btn.active {
-      background: #111827;
+    .tab-btn:hover {
+      border-color: rgba(255, 255, 255, 0.25);
       color: #fff;
-      border-color: #111827;
     }
-    /* Native Banner 原生廣告容器 */
-    .native-ad-box {
-      background: var(--card);
+    .tab-btn.active {
+      background: var(--text-main);
+      color: #070a11;
+      border-color: var(--text-main);
+      font-weight: 800;
+    }
+    .tab-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: rgba(128, 128, 128, 0.2);
+    }
+    .sort-select {
+      background: var(--bg-surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
-      margin-bottom: 16px;
-      min-height: 90px;
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
     }
-    /* 熱搜卡片列表 */
-    .grid {
+
+    /* 4. 頭條 Bento Grid 焦點區 */
+    .hero-bento {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 14px;
+      grid-template-columns: 1.65fr 1fr;
+      gap: 18px;
+      margin-bottom: 24px;
     }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+    @media (max-width: 860px) {
+      .hero-bento { grid-template-columns: 1fr; }
+    }
+
+    .hero-main {
+      position: relative;
+      border-radius: 18px;
       overflow: hidden;
+      min-height: 360px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: box-shadow 0.15s ease;
+      justify-content: flex-end;
+      padding: 26px;
+      transition: transform 0.2s, border-color 0.2s;
     }
-    .card:hover {
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    .hero-main:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
     }
-    .card-img {
+    .hero-bg {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      height: 150px;
+      height: 100%;
       object-fit: cover;
-      background: #e5e7eb;
+      opacity: 0.48;
+      transition: transform 0.4s ease;
     }
-    .card-body {
-      padding: 14px;
+    .hero-main:hover .hero-bg { transform: scale(1.03); }
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #070a11 12%, rgba(7, 10, 17, 0.72) 55%, rgba(7, 10, 17, 0.2) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+      align-items: center;
+    }
+    .badge-top1 {
+      background: var(--crimson);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 0 14px var(--crimson-glow);
+    }
+    .badge-region {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .badge-traffic {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--amber);
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+    .hero-title {
+      font-size: clamp(1.45rem, 2.6vw, 2.05rem);
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .hero-hook {
+      color: #cbd5e1;
+      font-size: 0.96rem;
+      margin-bottom: 18px;
+      max-width: 640px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn-primary {
+      background: #fff;
+      color: #070a11;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .btn-primary:hover {
+      background: var(--cyan);
+      transform: translateY(-1px);
+    }
+    .btn-share {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.84rem;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-share:hover { background: rgba(255, 255, 255, 0.2); }
+
+    /* 右側雙卡片欄（第2名 ＋ 高轉化 Smartlink 情報卡） */
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .side-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
       flex: 1;
       display: flex;
       flex-direction: column;
-    }
-    .badges {
-      display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-size: 0.78rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .side-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    /* 高點擊 Smartlink 情報特輯卡 */
+    .smartlink-card {
+      background: linear-gradient(145deg, #1b1124 0%, #2a1226 50%, #161c2e 100%);
+      border: 1px solid rgba(255, 46, 76, 0.45);
+      box-shadow: 0 8px 28px rgba(255, 46, 76, 0.15);
+      text-decoration: none;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .smartlink-card::after {
+      content: "HOT";
+      position: absolute;
+      right: -18px;
+      top: 12px;
+      background: var(--crimson);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 900;
+      padding: 3px 24px;
+      transform: rotate(35deg);
+    }
+    .smartlink-tag {
+      color: #ff6b81;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: inline-block;
+    }
+    .smartlink-title {
+      font-size: 1.12rem;
+      font-weight: 800;
+      line-height: 1.35;
       margin-bottom: 8px;
     }
-    .region-tag {
-      background: #eef2ff;
-      color: #3730a3;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-weight: 600;
+    .smartlink-desc {
+      font-size: 0.84rem;
+      color: #cbd5e1;
+      margin-bottom: 14px;
     }
-    .traffic-tag {
-      color: var(--accent-dark);
-      font-weight: 700;
+    .smartlink-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--crimson);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 10px 14px;
+      border-radius: 9px;
+      width: 100%;
     }
-    .keyword {
-      font-size: 1.08rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: var(--text);
+
+    /* 5. 無痕原生廣告容器（沒廣告時自動隱形，不留白框） */
+    .native-ad-wrapper {
+      margin-bottom: 24px;
+      border-radius: 14px;
+      overflow: hidden;
     }
-    .hook {
-      font-size: 0.9rem;
-      color: #374151;
-      margin-bottom: 12px;
-      flex: 1;
-    }
-    .card-footer {
+
+    /* 6. 雜誌情報網格 */
+    .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid var(--border);
-      padding-top: 10px;
-      font-size: 0.8rem;
-      color: var(--muted);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
     }
-    .read-link {
-      color: var(--accent-dark);
-      font-weight: 700;
-      text-decoration: none;
-    }
-    .read-link:hover {
-      text-decoration: underline;
-    }
-    footer {
-      text-align: center;
-      padding: 24px 16px;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>🌍 GLOBAL TRENDS RADAR</h1>
-    <p id="update-time">全球即時熱搜雷達 · 載入最新數據中...</p>
-  </header>
-
-  <div class="container">
-    <!-- 點擊率監測面板（網址加上 ?stats=1 時顯示） -->
-    <div id="stats-panel">
-      <h3>📊 本機點擊率與熱度追蹤面板</h3>
-      <div id="stats-content">尚無點擊紀錄</div>
-      <button class="stats-btn" onclick="resetStats()">重置統計數據</button>
-    </div>
-
-    <!-- Adsterra Smartlink 置頂直連按鈕 -->
-    <a class="viral-banner"
-       href="https://asiafilm.org/4/c9fd036ccb50a1833d362caf25bf03ec"
-       target="_blank"
-       rel="noopener noreferrer"
-       onclick="logClick('置頂Smartlink按鈕')">
-      🔥 全球熱搜 Top 1 完整爆紅懶人包 ➔ 點擊立即查看
-    </a>
-
-    <!-- 地區切換篩選器 -->
-    <div class="filters">
-      <button class="filter-btn active" onclick="filterRegion('ALL', this)">🌐 全部地區</button>
-      <button class="filter-btn" onclick="filterRegion('US', this)">🇺🇸 美國熱搜</button>
-      <button class="filter-btn" onclick="filterRegion('GB', this)">🇬🇧 英國熱搜</button>
-      <button class="filter-btn" onclick="filterRegion('TW', this)">🇹🇼 台灣熱搜</button>
-      <button class="filter-btn" onclick="filterRegion('JP', this)">🇯🇵 日本熱搜</button>
-    </div>
-
-    <!-- Adsterra Native Banner 原生廣告區塊 -->
-    <div class="native-ad-box">
-      <script async="async" data-cfasync="false" src="https://bicea.org/21/8fd6b14a893555a55d0b13d0062e2728"></script>
-      <div id="container-8fd6b14a893555a55d0b13d0062e2728"></div>
-    </div>
-
-    <!-- 熱搜新聞卡片網格 -->
-    <div id="trends-grid" class="grid"></div>
-  </div>
-
-  <footer>
-    Global Trends Radar · Automated Real-Time Search Intelligence
-  </footer>
-
-  <script>
-    let allItems = [];
-    let currentRegion = 'ALL';
-
-    function logClick(label) {
-      try {
-        const stats = JSON.parse(localStorage.getItem('sigma_clicks') || '{}');
-        stats[label] = (stats[label] || 0) + 1;
-        localStorage.setItem('sigma_clicks', JSON.stringify(stats));
-        renderStats();
-      } catch (e) {}
-    }
-
-    function resetStats() {
-      localStorage.removeItem('sigma_clicks');
-      renderStats();
-    }
-
-    function renderStats() {
-      const params = new URLSearchParams(window.location.search);
-      const panel = document.getElementById('stats-panel');
-      if (params.get('stats') !== '1') return;
-      panel.style.display = 'block';
-      const stats = JSON.parse(localStorage.getItem('sigma_clicks') || '{}');
-      const entries = Object.entries(stats).sort((a, b) => b[1] - a[1]);
-      if (entries.length === 0) {
-        document.getElementById('stats-content').innerText = '尚無點擊紀錄';
-        return;
-      }
-      document.getElementById('stats-content').innerHTML = entries
-        .map(([k, v]) => `• ${k}：<strong>${v}</strong> 次`)
-        .join('<br>');
-    }
-
-    function filterRegion(code, btn) {
-      currentRegion = code;
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderCards();
-    }
-
-    function renderCards() {
-      const grid = document.getElementById('trends-grid');
-      const filtered = currentRegion === 'ALL'
-        ? allItems
-        : allItems.filter(item => item.code === currentRegion);
-
-      if (filtered.length === 0) {
-        grid.innerHTML = '<p style="color:#6b7280;">目前尚無此地區熱搜資料，請稍候自動更新。</p>';
-        return;
-      }
-
-      grid.innerHTML = filtered.map(item => `
-        <article class="card">
-          ${item.picture ? `<img class="card-img" src="${item.picture}" alt="${item.keyword}" loading="lazy" onerror="this.style.display='none'">` : ''}
-          <div class="card-body">
-            <div class="badges">
-              <span class="region-tag">${item.region}</span>
-              <span class="traffic-tag">${item.traffic}</span>
-            </div>
-            <h2 class="keyword">${item.keyword}</h2>
-            <p class="hook">${item.hook}</p>
-            <div class="card-footer">
-              <span>來源：${item.source}</span>
-              <a class="read-link"
-                 href="${item.url}"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 onclick="logClick('${item.code} - ${item.keyword.replace(/'/g, "")}')">
-                查看懶人包 ↗
-              </a>
-            </div>
-          </div>
-        </article>
-      `).join('');
-    }
-
-    async function loadTrends() {
-      try {
-        const res = await fetch('trends.json?t=' + Date.now());
-        const data = await res.json();
-        allItems = data.items || [];
-        document.getElementById('update-time').innerText =
-          `最後更新時間：${data.updated_at} (GMT+8) · 共收錄 ${data.total} 筆全球即時話題`;
-        renderCards();
-      } catch (err) {
-        document.getElementById('update-time').innerText = '熱搜數據載入失敗，請重新整理頁面';
-      }
-    }
-
-    renderStats();
-    loadTrends();
-  </script>
-
-  <!-- 若之後要加 Monetag In-Page Push 代碼，直接貼在這行下方即可 -->
-</body>
-</html>
+    .section-title {
+      font-size: 1.05rem;
+      font
