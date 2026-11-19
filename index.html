@@ -1,1 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GLOBAL TRENDS RADAR | 全球即時熱搜關鍵字與爆紅話題</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --surface: #111827;
+      --card: #161f33;
+      --card-hover: #1d2842;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --hot: #ef4444;
+      --orange: #f97316;
+      --cyan: #38bdf8;
+      --border: rgba(148, 163, 184, 0.14);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      background: linear-gradient(180deg, #0f172a 0%, #090d16 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+    header h1 { font-size: 1.55rem; font-weight: 800; letter-spacing: 0.4px; }
+    header p { color: var(--muted); font-size: 0.85rem; margin-top: 0.35rem; }
 
+    .container { max-width: 960px; margin: 0 auto; padding: 1rem; }
+
+    /* 廣告位容器 */
+    .ad-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed rgba(249, 115, 22, 0.45);
+      border-radius: 10px;
+      padding: 0.75rem;
+      margin: 1rem 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.78rem;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 高 CTR 直連誘餌按鈕 */
+    .viral-banner {
+      display: block;
+      background: linear-gradient(90deg, #dc2626, #f97316);
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
+    }
+
+    /* 地區切換按鈕 */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .tab {
+      background: var(--surface);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .tab.active {
+      background: var(--cyan);
+      color: #090d16;
+      border-color: var(--cyan);
+    }
+
+    /* 熱搜卡片列表 */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.95rem;
+    }
+    .trend-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+      transition: transform 0.15s, background 0.15s, border-color 0.15s;
+    }
+    .trend-card:hover {
+      transform: translateY(-2px);
+      background: var(--card-hover);
+      border-color: rgba(56, 189, 248, 0.45);
+    }
+    .thumb {
+      width: 74px;
+      height: 74px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #0f172a;
+      flex-shrink: 0;
+    }
+    .content { flex: 1; min-width: 0; }
+    .badges {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .region-tag {
+      font-size: 0.72rem;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--cyan);
+      padding: 0.1rem 0.45rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .vol-tag {
+      font-size: 0.72rem;
+      background: rgba(239, 68, 68, 0.16);
+      color: #fca5a5;
+      padding: 0.1rem 0.45rem;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .kw-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+      color: #fff;
+    }
+    .hook-text {
+      font-size: 0.82rem;
+      color: var(--muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .src-line {
+      font-size: 0.72rem;
+      color: #64748b;
+      margin-top: 0.4rem;
+    }
+
+    /* 隱藏數據看板 (?stats=1 開啟) */
+    .stats-bar {
+      display: none;
+      background: #111827;
+      border: 1px solid var(--cyan);
+      border-radius: 10px;
+      padding: 0.9rem;
+      margin-bottom: 1rem;
+      font-size: 0.84rem;
+    }
+    footer {
+      text-align: center;
+      color: #64748b;
+      font-size: 0.78rem;
+      padding: 2.5rem 1rem;
+    }
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🌍 全球 Google 即時熱搜榜</h1>
+    <p id="updated-time">追蹤全球正在暴增的熱門搜尋關鍵字與背後原因</p>
+  </header>
+
+  <main class="container">
+    <div class="stats-bar" id="stats-bar"></div>
+
+    <!-- 【廣告位 1：頂部橫幅】貼上 Adsterra / Monetag 橫幅代碼 -->
+    <div class="ad-box" id="ad-top">
+      [廣告位 1：貼上 Adsterra / Monetag 橫幅廣告代碼]
+    </div>
+
+    <!-- 【廣告位 2：全站高點擊直連按鈕】將 href="#" 換成 Adsterra Smart Direct Link -->
+    <a class="viral-banner" href="#" target="_blank" rel="noopener" onclick="logClick('直連廣告按鈕')">
+      🔥 全球熱搜 Top 1 完整懶人包＆現場畫面（點擊查看） ➔
+    </a>
+
+    <div class="tabs" id="region-tabs"></div>
+    <div class="grid" id="trends-grid">正在載入全球熱搜數據...</div>
+
+    <!-- 【廣告位 3：底部原生廣告】貼上 Native Banner 代碼 -->
+    <div class="ad-box" id="ad-bottom">
+      [廣告位 3：貼上 Adsterra / Monetag Native Banner 代碼]
+    </div>
+  </main>
+
+  <footer>
+    數據來源：Google Trends 公開即時熱搜接口｜點擊卡片查看完整報導與搜尋結果
+  </footer>
+
+  <script>
+    let trendsData = [];
+    let currentRegion = '全部';
+
+    function logClick(label) {
+      const data = JSON.parse(localStorage.getItem('global_ctr') || '{}');
+      data[label] = (data[label] || 0) + 1;
+      localStorage.setItem('global_ctr', JSON.stringify(data));
+    }
+
+    if (new URLSearchParams(window.location.search).get('stats') === '1') {
+      const bar = document.getElementById('stats-bar');
+      const data = JSON.parse(localStorage.getItem('global_ctr') || '{}');
+      bar.style.display = 'block';
+      bar.innerHTML = `<strong>📊 各地區／題材點擊分布（用來決定未來主攻客群）：</strong><br>` +
+        (Object.keys(data).length ? JSON.stringify(data) : '尚無點擊數據');
+    }
+
+    async function init() {
+      try {
+        const res = await fetch('trends.json?t=' + Date.now());
+        const json = await res.json();
+        document.getElementById('updated-time').textContent = `最後同步時間：${json.updated_at}（每 2 小時自動更新全球熱搜）`;
+        trendsData = json.items || [];
+        renderTabs();
+        renderGrid();
+      } catch (e) {
+        document.getElementById('trends-grid').innerHTML = '請先到 GitHub Actions 手動執行一次 Auto Fetch Google Trends 初始化數據。';
+      }
+    }
+
+    function renderTabs() {
+      const regions = ['全部', ...new Set(trendsData.map(i => i.region))];
+      document.getElementById('region-tabs').innerHTML = regions.map(r =>
+        `<button class="tab ${r === currentRegion ? 'active' : ''}" onclick="switchRegion('${r}')">${r}</button>`
+      ).join('');
+    }
+
+    function switchRegion(r) {
+      currentRegion = r;
+      renderTabs();
+      renderGrid();
+    }
+
+    function renderGrid() {
+      const list = currentRegion === '全部' ? trendsData : trendsData.filter(i => i.region === currentRegion);
+      let html = '';
+      list.forEach((item, index) => {
+        // 每 6 張卡片插入一個高點擊信息流廣告位
+        if (index === 6) {
+          html += `<div class="ad-box" style="grid-column: 1 / -1;">[廣告位 2：信息流原生廣告 Native Banner]</div>`;
+        }
+        const imgHtml = item.picture
+          ? `<img class="thumb" src="${item.picture}" alt="${item.keyword}" loading="lazy" />`
+          : '';
+        html += `
+          <a class="trend-card" href="${item.url}" target="_blank" rel="noopener" onclick="logClick('${item.region} - ${item.keyword}')">
+            ${imgHtml}
+            <div class="content">
+              <div class="badges">
+                <span class="region-tag">${item.region}</span>
+                <span class="vol-tag">${item.traffic}</span>
+              </div>
+              <div class="kw-title">${item.keyword}</div>
+              <div class="hook-text">${item.hook}</div>
+              <div class="src-line">來源：${item.source} ↗</div>
+            </div>
+          </a>
+        `;
+      });
+      document.getElementById('trends-grid').innerHTML = html || '暫無熱搜資料';
+    }
+
+    init();
+  </script>
+</body>
+</html>
